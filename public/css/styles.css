@@ -1,0 +1,79 @@
+/*タブメニュー*/
+
+body{
+  font-family: 'Kosugi Maru', sans-serif;
+}
+
+
+.tab_item {
+  display: none;
+}
+
+.is-active-item {
+  display: block;
+}
+
+/*サイドバー用のCSS*/
+header, main, footer {
+  padding-left: 300px;
+}
+
+.header h2{
+  margin:0;
+  line-height: 100px;
+}
+
+.header{
+  height: 100px;
+}
+
+.sidenav-trigger{
+  position: absolute;
+  top: 10px;
+}
+
+/*navbar固定ここから*/
+.navbar{
+  position: fixed;
+  opacity:0.8;
+  z-index: 10;
+}
+.nav-wrapper{
+  z-index:1;
+}
+
+.startBtn{
+  z-index:5;
+}
+/*navbar固定ここまで*/
+
+.startBtn{
+  position:relative;
+  top:-50px;
+  left:20px;
+}
+
+.card-image img{
+  height:40%;
+}
+
+.slider.fullscreen {
+  height: 100vh !important;
+  position: relative !important;
+}
+
+
+@media only screen and (max-width : 992px) {
+　.parallax-container .section {
+　　position: absolute;
+　　top: 50;
+　　}
+}
+
+@media only screen and (min-width: 601px) {
+  a.sidenav-trigger{
+    height: 64px;
+    width: 64px;
+    line-height: 64px;
+  }
+}
