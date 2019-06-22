@@ -42,10 +42,11 @@
                     <th>{{$val->delivery_date}}</th>
                     <th>{{$val->unit_price}}円</th>
                     <th>
-                        <form>
+                        <form method="POST" action="/updateItemStates/{{$val->client_id}}" id="states_form">
+                          {{csrf_field()}}
                           <div class="input-field col s12">
-                            <select id="states" class="select" name="states">
-                              <option value="1" selected>未執筆</option>
+                            <select id="states" class="select" name="states" onchange="submit(this.form)">
+                              <option value="1">未執筆</option>
                               <option value="2">執筆済み</option>
                               <option value="3">納品済み</option>
                               <option value="4">請求済み</option>
@@ -63,4 +64,11 @@
         </table>
     </div>
     </div>
+        <script type="text/javascript">
+        $(function(){
+          $("#states").change(function(){
+            $("#states_form").submit();
+          });
+        });
+    </script>
 @endsection

@@ -63,9 +63,9 @@
         <div class="container col s12 offset-l3">
           <h2>請求書一覧</h2>
           <div class="collection invoiceList">
-            <a href="{{ url('/invoice')}}" class="collection-item">AAAA社</a>
-            <a href="#!" class="collection-item">BBBB社</a>
-            <a href="#!" class="collection-item">CCCC社</a>
+            @foreach($list as $val)
+            <a href="/invoices/{{ $val->id }}" class="collection-item">{{$val->client_name}}</a>
+            @endforeach
           </div>
         </div>
     </div>

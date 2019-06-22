@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User_info;
+use App\Invoice;
+use App\Client;
+use App\Bill;
 
 
 class InvoiceController extends Controller
@@ -14,8 +17,16 @@ class InvoiceController extends Controller
         $this->middleware('auth');
     }
     
-    public function invoice(){
-        return view('invoice.invoice');
+    public function invoices($id){
+        $clientList = Client::where('id', '=', '$id');
+        $invoiceList = Invoice::all();
+        return view('invoice.invoices', compact('clientList','invoiceList','id'));
+    }
+    public function invoice($id){
+        $invoiceList = Invoice::where('id','=','$id');
+        $user_infoList = User_info::all();
+        $billList = Bill::where('invoice_id','=','$id');
+        return view('invoice.invoice', compact('invoiceList','user_infoList','billList','id'));
     }
     public function editUser(){
         $list = User_info::where('user_id','=',Auth::user()->id)->first(); //ログインしているユーザーのデータを取るときに使える。

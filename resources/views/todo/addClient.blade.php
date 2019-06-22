@@ -8,7 +8,7 @@
         <ul id="slide-out" class="sidenav sidenav-fixed ">
           <li><a href="{{url('/user')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
           <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
-          <li><a href="'/addClient'">クライアント追加<i class="material-icons left">add</i></a></li>
+          <li><a href="/addClient">クライアント追加<i class="material-icons left">add</i></a></li>
           <li><a href="{{url('addItem')}}">案件追加<i class="material-icons left">add</i></a></li>
         </ul>
       </div>
@@ -18,63 +18,42 @@
         <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
     <h2 class="center-align">クライアント追加</h2>
     </nav>
-      <form action="addNewClient" method="POST">
+      {{Form::open(['url' => 'addNewClient'])}}
         {{ csrf_field() }}
           <div class="input-field col s12">
-            <input id="client_name" type="text" class="validate" name="client_name">
-            <label for="client_name">クライアント名</label>
+            {{Form::text('client_name', '',['class' => 'validate', 'id' => 'client_name'])}}
+            {{Form::label('client_name','クライアント名')}}
           </div>
           <div class="input-field col s12">
-            <input id="personnel" type="text" class="validate" name="personnel">
-            <label for="personnel">担当者名</label>
+            {{Form::text('personnel', '',['class' => 'validate', 'id' => 'personnel'])}}
+            {{Form::label('personnel', '担当者名')}}
           </div>
           <div class="input-field col s12">
-            <input id="client_tel_number" type="text" class="validate" name="client_tel_number">
-            <label for="client_tel_number">連絡先</label>
+            {{Form::text('client_tel_number', '' ,['class' => 'validate', 'id' => 'client_tel_number'])}}
+            {{Form::label('client_tel_number', '連絡先')}}
           </div>
           <div class="input-field col s12">
-            <input id="client_address" type="text" class="validate" name="client_address">
-            <label for="client_address">住所</label>
+            {{Form::text('client_address', '',['class' => 'validate', 'id' => 'client_address'])}}
+            {{Form::label('client_address', '住所')}}
           </div>
           <div class="input-field col s12">
-            <select id="sales_tax_rate" class="select" name="sales_tax_rate">
-              <option value="" disabled selected>消費税率を選んでください。</option>
-              <option value="1">0%(税抜)</option>
-              <option value="2">8%(税込)</option>
-              <option value="3">10%(税込)</option>
-              <option value="4">5%(税込)</option>
-            </select>
-            <label for="sales_tax_rate">消費税率</label>
+            {{Form::select('sales_tax_rate', ['消費税率を選んでください','0%(税抜)','8%(税込)', '5%(税込)'] , null, ['class' => 'select', 'id' => 'sales_tax_rate'])}}
+            {{Form::label('sales_tax_rate', '消費税率')}}
           </div>
           <div class="input-field col s12">
-            <select id="withholding_tax_rate" class="select" name="withholding_tax_rate">
-              <option value="" disabled selected>源泉徴収税率を選んでください。</option>
-              <option value="1">0%(無課税)</option>
-              <option value="2">10.21%</option>
-              <option value="3">20.42%</option>
-            </select>
-            <label for="withholding_tax_rate">源泉徴収税率</label>
+            {{Form::select('withholding_tax_rate', ['源泉徴収税率を選んでください','0%(無課税)','10.21%', '20.42%'] , null, ['class' => 'select', 'id' => 'withholding_tax_rate'])}}
+            {{Form::label('withholding_tax_rate', '源泉徴収税率')}}
           </div>
           <div class="input-field col s12">
-            <select id="tax_category" class="select" name="tax_category">
-              <option value="" disabled selected>税区分を選んでください。</option>
-              <option value="1">税別</option>
-              <option value="2">税込</option>
-              <option value="3">免税</option>
-            </select>
-            <label for="tax_category">税区分</label>
+            {{Form::select('tax_category', ['税区分を選んでください。','税別','税込', '免税'] , null, ['class' => 'select', 'id' => 'tax_category'])}}
+            {{Form::label('tax_category', '税区分')}}
           </div>
           <div class="input-field col s12">
-            <select id="fraction" class="select" name="fraction">
-              <option value="" disabled selected>端数処理を選んでください。</option>
-              <option value="1">切り上げ</option>
-              <option value="2">切り下げ</option>
-              <option value="3">四捨五入</option>
-            </select>
-            <label for="fraction">税区分</label>
+            {{Form::select('fraction', ['端数処理を選んでください。','切り上げ','切り下げ', '四捨五入'] , null, ['class' => 'select', 'id' => 'fraction'])}}
+            {{Form::label('fraction', '税区分')}}
           </div>
-          <input type="submit" value="クライアント情報追加" class="waves-effect waves-light btn blue accent-1">
-      </form>
+          {{Form::submit('クライアント情報追加', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
+      {{Form::close()}}
       </div>
     </div>
 @endsection

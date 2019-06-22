@@ -18,28 +18,23 @@
           <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
       <h2 class="center-align">案件追加</h2>
       </nav>
-      <form action="/addNewItem" method="POST">
+      {{Form::open(['url' => 'addNewItem'])}}
         {{ csrf_field() }}
           <div class="input-field col s12">
-            <input id="item_name" type="text" class="validate" name="item_name">
-            <label for="item_name">案件名</label>
+            {{Form::text('item_name', '',['class' => 'validate', 'id' => 'item_name'])}}
+            {{Form::label('item_name','案件名')}}
           </div>
           <div class="input-field col s12">
-            <input id="delivery_date" type="text" class="datepicker" name="delivery_date">
-            <label for="delivery_date">納期</label>
+            {{Form::text('delivery_date', '',['class' => 'datepicker', 'id' => 'delivery_date'])}}
+            {{Form::label('delivery_date','納期')}}
           </div>
           <div class="input-field col s12">
-            <input id="unit_price" type="text" class="validate" name="unit_price">
-            <label for="unit_price">単価</label>
+            {{Form::text('unit_price', '',['class' => 'validate', 'id' => 'unit_price'])}}
+            {{Form::label('unit_price','納期')}}
           </div>
           <div class="input-field col s12">
-            <select id="states" class="select" name="states">
-              <option value="1" selected>未執筆</option>
-              <option value="2">執筆済み</option>
-              <option value="3">納品済み</option>
-              <option value="4">請求済み</option>
-            </select>
-            <label for="states">ステータス</label>
+            {{Form::select('states', ['未執筆','執筆済み','納品済み', '請求済み'] , null, ['class' => 'select', 'id' => 'states'])}}
+            {{Form::label('states', 'ステータス')}}
           </div>
           <div class="input-field col s12">
             <select id="client_id" class="select" name="client_id">
@@ -51,11 +46,11 @@
             <label for="client_id">クライアント</label>
           </div>
           <div class="input-field col s12">
-            <input id="memo" type="text" class="validate" name="memo">
-            <label for="memo">備考</label>
+            {{Form::textarea('memo', null, ['class' => 'validate', 'id' => 'memo'])}}
+            {{Form::label('memo','備考欄')}}
           </div>
-          <input type="submit" value="案件追加" class="waves-effect waves-light btn blue accent-1">
-      </form>
+          {{Form::submit('案件追加', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
+      {{Form::close()}}
       </div>
     </div>
 @endsection

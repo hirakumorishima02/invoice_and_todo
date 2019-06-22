@@ -101,6 +101,16 @@ class TodoController extends Controller
         
         return redirect('/user');
     }
+    public function updateItemStates(Request $request, $id){
+        $list = Item::all();
+        $clientList = Client::all();
+        
+        $item = Item::where('id', '=', $request->id)->first();
+        $item->states = $request->states;
+        $item->save();
+        
+        return view('todo.items', compact('list','clientList','id'));
+    }
     public function deleteItem(Request $request)
     {
         $item = Item::where('id', '=', $request->id)->first();
