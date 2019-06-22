@@ -28,10 +28,10 @@ Route::delete('/deleteClient/{id}','TodoController@deleteClient');
 // 案件情報の追加・更新・削除
 Route::get('/items/{id}', 'TodoController@items');
 Route::get('/addItem', 'TodoController@addItem');
-Route::get('/editItem', 'TodoController@editItem')->name('editItem');
+Route::get('/editItem', 'TodoController@editItem');
 Route::post('addNewItem','TodoController@addNewItem')->name('addNewItem');
 Route::get('/editItem/{id}', 'TodoController@editItem');
-Route::post('/updateItem/{id}','TodoController@updateItem');
+Route::post('/updateItem/{id}','TodoController@updateItem')->name('updateItem');
 Route::post('/updateItemStates/{client_id}','TodoController@updateItemStates');
 Route::delete('/deleteItem/{id}','TodoController@deleteItem');
 

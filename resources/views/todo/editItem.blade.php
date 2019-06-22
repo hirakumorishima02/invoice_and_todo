@@ -18,7 +18,7 @@
           <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
       <h2 class="center-align">案件管理画面</h2>
       </nav>
-      {{Form::open(['url' => route('editItem',['id'=>$list->id]),'method'=>'POST'])}}
+      {{Form::open(['url' => route('updateItem',['id'=>$list->id]),'method'=>'POST'])}}
         {{ csrf_field() }}
           <div class="input-field col s12">
             {{Form::text('item_name', $list->item_name,['class' => 'validate', 'id' => 'item_name'])}}
@@ -30,7 +30,7 @@
           </div>
           <div class="input-field col s12">
             {{Form::text('unit_price', $list->unit_price,['class' => 'validate', 'id' => 'unit_price'])}}
-            {{Form::label('unit_price','納期')}}
+            {{Form::label('unit_price','単価')}}
           </div>
           <div class="input-field col s12">
             {{Form::select('states', ['未執筆','執筆済み','納品済み', '請求済み'] , null, ['class' => 'select', 'id' => 'states'])}}
@@ -38,12 +38,13 @@
           </div>
           <div class="input-field col s12">
             <select id="client_id" class="select" name="client_id">
-              <option value="" disabled selected>クライアントを選んでください。</option>
-              @foreach($list as $val)
-              <option value="{{$val->id}}">{{$val->client_name}}</option>
-              @endforeach
-            </select>
-            <label for="client_id">クライアント</label>
+	              <option value="" disabled selected>クライアントを選んでください。</option>
+	              @foreach($clientList as $val)
+	              <option value="{{$val->id}}">{{$val->client_name}}</option>
+	              {{Form::hidden('client_id', $clientList->id)}}
+	              @endforeach
+	            </select>
+	            <label for="client_id">クライアント</label>
           </div>
           <div class="input-field col s12">
             {{Form::textarea('memo', $list->memo, ['class' => 'validate', 'id' => 'memo'])}}

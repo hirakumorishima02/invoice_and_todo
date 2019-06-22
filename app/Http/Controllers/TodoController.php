@@ -86,7 +86,8 @@ class TodoController extends Controller
     }
     public function editItem($id){
         $list = Item::find($id);
-        return view('todo.editItem', compact('list'));
+        $clientList = Client::all();
+        return view('todo.editItem', compact('list', 'clientList'));
     }
     public function updateItem(Request $request, $id){
         $item = Item::where('id', '=', $request->id)->first();
