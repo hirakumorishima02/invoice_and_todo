@@ -55,8 +55,9 @@
       <div class="col s0 l2">
         <a href="#" data-target="slide-out2" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
         <ul id="slide-out2" class="sidenav sidenav-fixed ">
+          <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
           <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
-          <li><a href="{{ url('/invoice')}}">請求済みの請求書<i class="material-icons left">call_made</i></a></li>
+          <li><a href="{{ url('/addInvoice')}}">請求書作成<i class="material-icons left">add</i></a></li>
         </ul>
       </div>
         <!--請求書のコンテンツ-->
@@ -64,7 +65,7 @@
           <h2>請求書一覧</h2>
           <div class="collection invoiceList">
             @foreach($list as $val)
-            <a href="/invoices/{{ $val->id }}" class="collection-item">{{$val->client_name}}</a>
+            <a href="/invoice/{{ $val->id }}" class="collection-item">{{$val->client_name}}</a>
             @endforeach
           </div>
         </div>

@@ -73,4 +73,18 @@ class InvoiceController extends Controller
         return redirect('/editUser');
     }
     
+    public function addInvoice(){
+        $list = Client::all();
+        return view('invoice.addInvoice', compact('list'));
+    }
+    // 請求書ヘッダ情報の追加・更新・削除
+    public function addNewInvoice(Request $request){
+        $invoice = new Invoice();
+        // invoiceテーブルのbilling_name（請求宛先名）にclientテーブルのclient_name（クライアント名）を登録したい。リレーション？
+        $invoice->billing_name = 
+        $invoice->invoice_title = $request->invoice_title;
+        $item->save();
+        
+        return redirect('/user#invoice');
+    }
 }

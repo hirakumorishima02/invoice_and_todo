@@ -6,10 +6,10 @@
     <div class="row">
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="{{url('/user')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
+          <li><a href="{{ url('/user#invoice')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
           <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
-          <li><a href="{{url('/addClient')}}">クライアント追加<i class="material-icons left">add</i></a></li>
-          <li><a href="{{url('addItem')}}">案件追加<i class="material-icons left">add</i></a></li>
+          <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
+          <li><a href="{{ url('/addInvoice')}}">請求書作成<i class="material-icons left">add</i></a></li>
         </ul>
       </div>
     <!--サイドメニューここまで-->

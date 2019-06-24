@@ -6,9 +6,10 @@
     <div class="row">
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="{{ url('/user')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
-          <li><a href="#">ユーザー情報管理<i class="material-icons left">person</i></a></li>
-          <li><a href="{{ url('/editUser')}}">請求済みの請求書<i class="material-icons left">date_range</i></a></li>
+          <li><a href="{{ url('/user#invoice')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
+          <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
+          <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
+          <li><a href="{{ url('/addInvoice')}}">請求書作成<i class="material-icons left">add</i></a></li>
         </ul>
       </div>
       <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
@@ -43,7 +44,7 @@
           </div>
           <div class="input-field col s12">
             <input id="billing_message" type="text" class="validate" name="billing_message" value="{{$list->billing_message}}">
-            <label for="billing_message">備考欄</label>
+            <label for="billing_message">請求書の備考欄</label>
           </div>
            <input type="submit" value="ユーザー情報の登録・更新" class="waves-effect waves-light btn blue accent-1">
            <input type="hidden" name="id" value="{{$list->id}}">

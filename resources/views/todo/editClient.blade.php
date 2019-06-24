@@ -20,7 +20,6 @@
       </nav>
       <h3>{{$list->client_name}}</h3>
       {{Form::open(['url' => route('updateClient',['id'=>$list->id]),'method'=>'POST'])}}
-
         {{ csrf_field() }}
           <div class="input-field col s12">
             {{Form::text('client_name', $list->client_name,['class' => 'validate', 'id' => 'client_name'])}}
@@ -39,22 +38,27 @@
             {{Form::label('client_address', '住所')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('sales_tax_rate', ['消費税率を選んでください','0%(税抜)','8%(税込)', '5%(税込)'] , null, ['class' => 'select', 'id' => 'sales_tax_rate'])}}
+            {{Form::select('sales_tax_rate', ['0.00' => '消費税率を選んでください','1.00'=>'0%(税抜)','2.00'=>'8%(税込)','3.00'=>'5%(税込)'] , $list->sales_tax_rate , ['class' => 'select', 'id' => 'sales_tax_rate'])}}
             {{Form::label('sales_tax_rate', '消費税率')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('withholding_tax_rate', ['源泉徴収税率を選んでください','0%(無課税)','10.21%', '20.42%'] , null, ['class' => 'select', 'id' => 'withholding_tax_rate'])}}
+            {{Form::select('withholding_tax_rate', ['0.00' => '源泉徴収税率を選んでください','1.00'=>'0%(無課税)','2.00'=>'10.21%', '3.00'=>'20.42%'] , $list->withholding_tax_rate, ['class' => 'select', 'id' => 'withholding_tax_rate'])}}
             {{Form::label('withholding_tax_rate', '源泉徴収税率')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('tax_category', ['税区分を選んでください。','税別','税込', '免税'] , null, ['class' => 'select', 'id' => 'tax_category'])}}
+            {{Form::select('tax_category', ['税区分を選んでください。','税別','税込', '免税'] , $list->tax_category, ['class' => 'select', 'id' => 'tax_category'])}}
             {{Form::label('tax_category', '税区分')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('fraction', ['端数処理を選んでください。','切り上げ','切り下げ', '四捨五入'] , null, ['class' => 'select', 'id' => 'fraction'])}}
+            {{Form::select('fraction', ['端数処理を選んでください。','切り上げ','切り下げ', '四捨五入'] , $list->fraction, ['class' => 'select', 'id' => 'fraction'])}}
             {{Form::label('fraction', '税区分')}}
           </div>
           {{Form::submit('クライアント情報追加', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
+      {{Form::close()}}
+      {{Form::open(['url' => route('deleteClient',['id'=>$list->id]),'method'=>'POST'])}}
+          {{ method_field('delete') }}
+          {{csrf_field()}}
+          {{Form::submit('クライアント情報削除', ['class' => 'waves-effect waves-light btn red lighten-1'])}}
       {{Form::close()}}
       </div>
     </div>

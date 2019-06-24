@@ -6,9 +6,10 @@
     <!--サイドメニュー-->
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="{{ url('/user')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
-          <li><a href="#">ユーザー情報管理<i class="material-icons left">person</i></a></li>
-          <li><a href="{{ url('/editUser')}}">請求済みの請求書<i class="material-icons left">date_range</i></a></li>
+          <li><a href="{{ url('/user#invoice')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
+          <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
+          <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
+          <li><a href="{{ url('/addInvoice')}}">請求書作成<i class="material-icons left">add</i></a></li>
         </ul>
       </div>
       
@@ -23,13 +24,13 @@
             <div class="col s5">
                 <!--invoiceList-->
                 @foreach($invoiceList as $val)
-                <p>請求先</p>　
+                <p>請求先</p>　<!--請求宛先名称-->
                 <input type="text" name="billing_name" value="{{$val->billing_name}}">
-                <p>請求日</p>
+                <p>請求日</p> 
                 <input type="text" class="datepicker" name="billing_day" value="{{$val->billing_day}}">
-                <p>請求番号</p>
+                <p>請求番号</p> <!--自動割り当て-->
                 <input type="text" name="" value="2019060801">
-                <p>件名</p>
+                <p>件名</p> <!--請求書のタイトル-->
                 <input type="text" name="invoice_title" value="{{$val->invoice_title}}">
                 <p>お支払い期限</p>
                 <input type="text" class="datepicker" name="payment_day" value="{{$val->payment_day}}">
@@ -113,7 +114,7 @@
           <div class="row">
             <div class="input-field col s12">
               <!--user_infoList-->
-              @foreach($user_infoList)
+              @foreach($user_infoList as $val)
               <textarea id="textarea1" class="materialize-textarea">{{$val->billing_message}}</textarea>
               <label for="textarea1">備考欄</label>
             </div>

@@ -100,7 +100,8 @@ class TodoController extends Controller
         $item->memo = $request->memo;
         $item->save();
         
-        return redirect('/user');
+        $clientId = $item->client_id;
+        return redirect()->action('TodoController@items', ['id' => $clientId]);
     }
     public function updateItemStates(Request $request, $id){
         $list = Item::all();
@@ -110,13 +111,15 @@ class TodoController extends Controller
         $item->states = $request->states;
         $item->save();
         
-        return view('todo.items', compact('list','clientList','id'));
+        $clientId = $item->client_id;
+        return redirect()->action('TodoController@items', ['id' => $clientId]);
     }
     public function deleteItem(Request $request)
     {
         $item = Item::where('id', '=', $request->id)->first();
         $item->delete();
 
-        return redirect('/items/{id}');
+        $clientId = $item->client_id;
+        return redirect()->action('TodoController@items', ['id' => $clientId]);
     }
 }
