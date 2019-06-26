@@ -42,6 +42,16 @@ class CreateInvoicesTable extends Migration
             ->onDelete('cascade');
         });
     }
+    public function client() {
+        return $this->belongsTo('App\Client','client_id');
+    }
+    public function billToInvoice() {
+        return $this->hasMany('App\Bill','invoice_id');
+    }    
+    public function itemToInvoice() {
+        return $this->hasMany('App\item','invoice_id');
+    }
+
 
     /**
      * Reverse the migrations.

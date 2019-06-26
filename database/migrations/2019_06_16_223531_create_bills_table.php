@@ -29,6 +29,9 @@ class CreateBillsTable extends Migration
             ->onDelete('cascade');
         });
     }
+    public function invoice() {
+        return $this->belongsTo('App\Invoice','invoice_id');
+    }
 
     /**
      * Reverse the migrations.

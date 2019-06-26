@@ -72,18 +72,34 @@ class InvoiceController extends Controller
         
         return redirect('/editUser');
     }
-    
-    public function addInvoice(){
+    public function checkClient(){
         $list = Client::all();
-        return view('invoice.addInvoice', compact('list'));
+        return view('invoice.checkClient', compact('list'));
     }
+    public function toAddInvoice(Request $request){
+        $clientList = Client::find($request->id);
+        $id = $request->id;
+        $user_infoList = User_info::all();
+        return view('invoice.addInvoice', compact('clientList', 'user_infoList', 'id'));
+    }
+
     // 請求書ヘッダ情報の追加・更新・削除
     public function addNewInvoice(Request $request){
         $invoice = new Invoice();
+        $invoice->user_id = Auth::user()->id;
+        $invoice->client_id = $request->client_id;
         // invoiceテーブルのbilling_name（請求宛先名）にclientテーブルのclient_name（クライアント名）を登録したい。リレーション？
-        $invoice->billing_name = 
+        $invoice->billing_name = $request->billing_name;
+        $invoice->billing_address = $request->billing_address;
         $invoice->invoice_title = $request->invoice_title;
-        $item->save();
+        $invoice->invoice_message = $request->invoice_message;
+        $invoice->subtotal = $request->subtotal;
+        $invoice->withholding_tax = $request->withholding_tax;
+        $invoice->tax_amount = $request->tax_amount;
+        $invoice->sum_price = $request->sum_price;
+        $invoice->payment_day = $request->payment_day;
+        $invoice->billing_day = $request->billing_day;
+        $invoice->save();
         
         return redirect('/user#invoice');
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Client;
 use App\User;
 use App\Item;
+use App\Invoice;
 use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
@@ -24,7 +25,8 @@ class TodoController extends Controller
     public function items($id){
         $list = Item::all();
         $clientList = Client::all();
-        return view('todo.items', compact('list','clientList','id'));
+        $invoiceList = Invoice::all();
+        return view('todo.items', compact('list','clientList', 'invoiceList','id'));
     }
     
     // クライアント情報の追加・更新・削除

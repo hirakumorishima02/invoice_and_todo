@@ -47,7 +47,7 @@
                           <div class="input-field col s12">
                             <select id="states" class="select" name="states" onchange="submit(this.form)">
                               <option value="1" {{$val->states == '1' ? 'selected' : ""}}>未執筆</option>
-                              <option value="2" {{$val->states == '2' ? 'selected' : ""}}>請求書挿入済み</option>
+                              <option value="2" {{$val->states == '2' ? 'selected' : ""}}>請求書挿入</option>
                             </select>
                             <label for="states">ステータス</label>
                           </div>
@@ -62,11 +62,58 @@
         </table>
     </div>
     </div>
-        <script type="text/javascript">
-        $(function(){
-          $("#states").change(function(){
-            $("#states_form").submit();
-          });
-        });
-    </script>
+        <a href="#modal01" class="modalOpen">
+    <button class="btn btn-primary">予定の登録</button>
+    </a>
+    
+    <!--請求書選択モーダル-->
+    <div class="modal" id="modal01">
+        <div class="overLay modalClose"></div>
+            <div class="inner">
+                  {{Form::open(['url' => 'insertInvoice', 'id' => 'modal_select' ])}}
+                  {{ csrf_field() }}
+                <select  class="select">
+                  @foreach($invoiceList as $val)
+                  <option value="{{$val->id}}">{{$val->invoice_title}}</option>
+                  @endforeach
+                </select>
+                <label for="client_id">登録先の請求書</label>
+                {{Form::close()}}
+                <button type="submit" class="btn btn-primary">請求書へ挿入</button> 
+            <a href="" class="modalClose">Close</a>
+            </div>
+    </div>
+
+<script type="text/javascript">
+// モーダルウィンドウの開閉処理
+$(function(){
+// モーダルウィンドウが開くときの処理    
+$("#states").change(function(){
+    // モーダルが開く処理を書く
+    var navClass = $(this).attr("class"),
+        href = $(this).attr("href");
+            
+        $(href).fadeIn();
+    $(this).addClass("open");
+    return false;
+});
+
+// modalのselect boxが切り替わったらsubmit
+$(function(){
+  $("#modal_select").change(function(){
+    $("#states_form").submit();
+  });
+});
+
+ 
+// モーダルウィンドウが閉じるときの処理    
+$(".modalClose").click(function(){
+    $(this).parents(".modal").fadeOut();
+    $(".modalOpen").removeClass("open");
+    return false;
+});  
+    
+});
+
+</script>
 @endsection

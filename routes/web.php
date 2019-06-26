@@ -42,5 +42,7 @@ Route::post('/updateUser','InvoiceController@updateUser');
 // 請求書
 Route::get('/invoices/{id}', 'InvoiceController@invoices');
 Route::get('/invoice/{id}', 'InvoiceController@invoice');
+Route::get('/checkClient', 'InvoiceController@checkClient');
+Route::get('toAddInvoice/{id}','InvoiceController@toAddInvoice');
 Route::get('/addInvoice', 'InvoiceController@addInvoice');
 Route::post('addNewInvoice','InvoiceController@addNewInvoice')->name('addNewInvoice');
