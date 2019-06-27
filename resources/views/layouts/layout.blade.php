@@ -15,11 +15,10 @@
   <body>
 @yield('body')
 <script src="{{ secure_asset('js/main.js') }}" defer></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <!--Materialize JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <!-- タブボタンのJS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!--Materialize JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- タブボタンのJS -->
       
       <script>
         $(function() {
@@ -31,30 +30,33 @@
             $(this).addClass('is-active-btn');
           });
         });
-      </script>
+
       <!--　サイドバーの初期化用JS　-->
-      <script>
         document.addEventListener('DOMContentLoaded', function() {
           var elems = document.querySelectorAll('.sidenav');
           var instances = M.Sidenav.init(elems, {});
         });
-      </script>
-      <!--　select optionの初期化用JS　-->
-      <script>
-        const Selector = document.querySelectorAll('.select');
-          M.FormSelect.init(Selector,{});
-      </script>
+
+
+
       <!--datepickerの初期化用JS-->
-      <script>
         const Calendar = document.querySelector('.datepicker');
         M.Datepicker.init(Calendar,{});
-      </script>
+
       <!--datepickerのフォーマットを変える-->
-      <script>
         $( function() {
           $( ".datepicker" ).datepicker({format: 'yyyy-mm-dd'});
         } );
-      </script>
+
+      <!-- モーダルウィンドウの開閉処理-->
+        $(function(){
+            $('select').formSelect();
+            $('.modal').modal();
+            $('#states').on('change',function(){
+                $('#modal01').modal('open');
+            });
+        });
+        </script>
       @stack('scripts')
   </body>
 </html>
