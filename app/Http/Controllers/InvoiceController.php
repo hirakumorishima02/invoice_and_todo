@@ -17,16 +17,17 @@ class InvoiceController extends Controller
     {
         $this->middleware('auth');
     }
-    public function invoices($id){
-        $invoiceList = Invoice::where('client_id', '=', $id)->get();
-        // $invoiceList = Invoice::all();
-        return view('invoice.invoices', compact('invoiceList','id'));
+    public function invoices($clientId){
+        $invoiceList = Invoice::where('client_id', '=', $clientId)->get();
+        return view('invoice.invoices', compact('invoiceList','clientId'));
     }
-    public function invoice($id){
-        $invoiceList = Invoice::where('id','=', $id)->get();
+    public function invoice($clientId, $invoiceId){
+        $invoiceList = Invoice::where('id','=', $invoiceId)->get();
         $user_infoList = User_info::all();
-        $billList = Bill::where('invoice_id','=', $id)->get();
-        return view('invoice.invoice', compact('invoiceList','user_infoList','billList','id'));
+        $billList = Bill::where('invoice_id','=', $invoiceId)->get();
+        // tax_rateとwithholding_tax_rateを引き出すために対象Clientを引き出したい
+        $clientList = Client::where('id','=', $clientId)->get();
+        return view('invoice.invoice', compact('invoiceList','user_infoList','billList', 'clientList' , 'clientId' ,'invoiceId'));
     }
     public function editUser(){
         $list = User_info::where('user_id','=',Auth::user()->id)->first(); //ログインしているユーザーのデータを取るときに使える。

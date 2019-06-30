@@ -81,7 +81,7 @@
                 <!--billListここまで-->
             <tr>
                 <!--invoiceList-->
-                @foreach($invoiceList as $val)
+                @foreach($clientList as $val)
                 <td></td>
                 <td></td>
                 <td></td>
@@ -93,25 +93,25 @@
                 <td></td>
                 <td></td>
                 <td>消費税</td>
-                @if($val->tax_amount == 1)
-                <td>{{$subtotal * 0}}円</td>
-                @elseif($val->tax_amount == 2)
-                <td>{{$subtotal * 0.08}}円</td>
-                @elseif($val->tax_amount == 3)
-                <td>{{$subtotal * 0.05}}円</td>
+                @if($val->sales_tax_rate == 1.00)
+                <td>{{$sales_subtotal = $subtotal * 0}}円</td>
+                @elseif($val->sales_tax_rate == 2.00)
+                <td>{{$sales_subtotal = $subtotal * 0.08}}円</td>
+                @elseif($val->sales_tax_rate == 3.00)
+                <td>{{$sales_subtotal = $subtotal * 0.05}}円</td>
                 @endif
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>源泉徴収税税</td>
-                @if($val->withholding_tax_rate == 1)
-                <td>{{$subtotal * 0}}円</td>
-                @elseif($val->withholding_tax_rate == 2)
-                <td>{{$subtotal * 10.21}}円</td>
-                @elseif($val->withholding_tax_rate == 3)
-                <td>{{$subtotal * 20.42}}円</td>
+                <td>源泉徴収税</td>
+                @if($val->withholding_tax_rate == 1.00)
+                <td>{{$withholding_subtotal = $subtotal * 0}}円</td>
+                @elseif($val->withholding_tax_rate == 2.00)
+                <td>{{$withholding_subtotal = $subtotal * 10.21}}円</td>
+                @elseif($val->withholding_tax_rate == 3.00)
+                <td>{{$withholding_subtotal = $subtotal * 20.42}}円</td>
                 @endif
             </tr>
             <tr>
@@ -119,7 +119,7 @@
                 <td></td>
                 <td></td>
                 <td>合計</td>
-                <td>{{$val->sum_price}}円</td>
+                <td>{{$subtotal - $sales_subtotal - $withholding_subtotal}}円</td>
                 @endforeach
                 <!--invoiceListここまで-->
             </tr>
@@ -133,7 +133,7 @@
               <label for="textarea1">備考欄</label>
             </div>
           </div>
-            <p>お振込み先:{{$val->bank_accont}}</p>
+            <p>お振込み先:　{{$val->bank_account}}</p>
             @endforeach
             <!--user_infoListここまで-->
             <input type="submit" value="請求書の作成">

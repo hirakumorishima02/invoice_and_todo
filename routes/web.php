@@ -40,8 +40,8 @@ Route::get('/editUser', 'InvoiceController@editUser');
 Route::post('/updateUser','InvoiceController@updateUser');
 
 // 請求書
-Route::get('/invoices/{id}', 'InvoiceController@invoices');
-Route::get('/invoice/{id}', 'InvoiceController@invoice');
+Route::get('/invoices/{clientId}', 'InvoiceController@invoices');
+Route::get('/invoice/{clientId}/{invoiceId}', 'InvoiceController@invoice');
 Route::get('/checkClient', 'InvoiceController@checkClient');
 Route::get('toAddInvoice/{id}','InvoiceController@toAddInvoice');
 Route::get('/addInvoice', 'InvoiceController@addInvoice');
