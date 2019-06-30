@@ -109,9 +109,9 @@
                 @if($val->withholding_tax_rate == 1.00)
                 <td>{{$withholding_subtotal = $subtotal * 0}}円</td>
                 @elseif($val->withholding_tax_rate == 2.00)
-                <td>{{$withholding_subtotal = $subtotal * 10.21}}円</td>
+                <td>{{$withholding_subtotal = $subtotal * 0.1021}}円</td>
                 @elseif($val->withholding_tax_rate == 3.00)
-                <td>{{$withholding_subtotal = $subtotal * 20.42}}円</td>
+                <td>{{$withholding_subtotal = $subtotal * 0.2042}}円</td>
                 @endif
             </tr>
             <tr>

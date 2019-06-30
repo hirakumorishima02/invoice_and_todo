@@ -21,7 +21,7 @@
     <div class="container col s12 offset-l3">
     <ul>
     @foreach($invoiceList as $val)
-        <li><a href="/invoice/{{ $val->id }}" class="collection-item">{{$val->invoice_title}}</a></li>
+        <li><a href="/invoice/{{ $val->client_id }}/invoice/{{ $val->id }}" class="collection-item">{{$val->invoice_title}}</a></li>
     @endforeach
     </ul>
     </div>
