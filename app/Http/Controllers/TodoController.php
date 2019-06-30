@@ -23,10 +23,10 @@ class TodoController extends Controller
         return view('todo.addItem', compact('list'));
     }
     public function items($id){
-        $list = Item::all();
-        $clientList = Client::all();
+        $list = Item::where('client_id', '=', $id)->get();
+        $client = Client::find($id);
         $invoiceList = Invoice::all();
-        return view('todo.items', compact('list','clientList', 'invoiceList','id'));
+        return view('todo.items', compact('list','client', 'invoiceList'));
     }
     
     // クライアント情報の追加・更新・削除

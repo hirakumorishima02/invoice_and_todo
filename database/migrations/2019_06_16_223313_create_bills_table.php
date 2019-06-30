@@ -14,7 +14,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('invoice_id')->unsigned();
             $table->string('billing_item'); //請求項目名称
             $table->string('unit'); //単位
@@ -28,9 +28,6 @@ class CreateBillsTable extends Migration
             ->on('invoices')
             ->onDelete('cascade');
         });
-    }
-    public function invoice() {
-        return $this->belongsTo('App\Invoice','invoice_id');
     }
 
     /**

@@ -18,9 +18,10 @@ class CreateItemsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('client_id')->unsigned();
             $table->integer('invoice_id')->unsigned()->nullable();
-            $table->string('item_name'); //案件名
+            $table->integer('bill_id')->unsigned()->nullable();
+            $table->string('item_name'); //案件名→billのbilling_itemに保存
             $table->date('delivery_date'); //納期
-            $table->decimal('unit_price'); //単価
+            $table->decimal('unit_price'); //単価名→billのbill_unit_priceに保存
             $table->integer('states'); //ステータス
             $table->text('memo'); //メモ
             $table->timestamps();
@@ -42,11 +43,16 @@ class CreateItemsTable extends Migration
             ->references('id')
             ->on('invoices')
             ->onDelete('cascade');
+            
+            $table
+            ->foreign('bill_id')
+            ->references('id')
+            ->on('bills')
+            ->onDelete('cascade');
+            
         });
     }
-    public function invoice() {
-        return $this->belongsTo('App\Invoice','invoice_id');
-    }
+
     /**
      * Reverse the migrations.
      *

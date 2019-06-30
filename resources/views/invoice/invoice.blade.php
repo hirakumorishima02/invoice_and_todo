@@ -66,17 +66,19 @@
                 <th>単価</th>
                 <th>金額</th>
             </tr>
-            <tr>
                 <!--billList-->
+                <?php $subtotal = 0 ?>
                 @foreach($billList as $val)
+            <tr>
                 <td>{{$val->billing_item}}</td>
                 <td>{{$val->quantity}}</td>
                 <td>{{$val->unit}}</td>
                 <td>{{$val->bill_unit_price}}円</td>
                 <td>{{$val->quantity * $val->bill_unit_price}}</td>
+            </tr>
+                <?php $subtotal += $val->bill_unit_price; ?>
                 @endforeach
                 <!--billListここまで-->
-            </tr>
             <tr>
                 <!--invoiceList-->
                 @foreach($invoiceList as $val)
@@ -84,21 +86,33 @@
                 <td></td>
                 <td></td>
                 <td>小計</td>
-                <td>{{$val->subtotal}}円</td>
+                <td>{{ $subtotal }}円</td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>消費税（8%）</td>
-                <td>{{$val->tax_amount}}円</td>
+                <td>消費税</td>
+                @if($val->tax_amount == 1)
+                <td>{{$subtotal * 0}}円</td>
+                @elseif($val->tax_amount == 2)
+                <td>{{$subtotal * 0.08}}円</td>
+                @elseif($val->tax_amount == 3)
+                <td>{{$subtotal * 0.05}}円</td>
+                @endif
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>源泉徴収税</td>
-                <td>{{$val->withholding_tax_rate}}円</td>
+                <td>源泉徴収税税</td>
+                @if($val->withholding_tax_rate == 1)
+                <td>{{$subtotal * 0}}円</td>
+                @elseif($val->withholding_tax_rate == 2)
+                <td>{{$subtotal * 10.21}}円</td>
+                @elseif($val->withholding_tax_rate == 3)
+                <td>{{$subtotal * 20.42}}円</td>
+                @endif
             </tr>
             <tr>
                 <td></td>

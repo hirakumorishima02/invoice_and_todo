@@ -65,7 +65,7 @@
           <h2>請求書一覧</h2>
           <div class="collection invoiceList">
             @foreach($list as $val)
-            <a href="/invoice/{{ $val->id }}" class="collection-item">{{$val->client_name}}</a>
+            <a href="/invoices/{{ $val->id }}" class="collection-item">{{$val->client_name}}</a>
             @endforeach
           </div>
         </div>

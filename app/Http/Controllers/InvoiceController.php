@@ -8,6 +8,7 @@ use App\User_info;
 use App\Invoice;
 use App\Client;
 use App\Bill;
+use App\Item;
 
 
 class InvoiceController extends Controller
@@ -16,16 +17,15 @@ class InvoiceController extends Controller
     {
         $this->middleware('auth');
     }
-    
     public function invoices($id){
-        $clientList = Client::where('id', '=', '$id');
-        $invoiceList = Invoice::all();
-        return view('invoice.invoices', compact('clientList','invoiceList','id'));
+        $invoiceList = Invoice::where('client_id', '=', $id)->get();
+        // $invoiceList = Invoice::all();
+        return view('invoice.invoices', compact('invoiceList','id'));
     }
     public function invoice($id){
-        $invoiceList = Invoice::where('id','=','$id');
+        $invoiceList = Invoice::where('id','=', $id)->get();
         $user_infoList = User_info::all();
-        $billList = Bill::where('invoice_id','=','$id');
+        $billList = Bill::where('invoice_id','=', $id)->get();
         return view('invoice.invoice', compact('invoiceList','user_infoList','billList','id'));
     }
     public function editUser(){
@@ -102,5 +102,35 @@ class InvoiceController extends Controller
         $invoice->save();
         
         return redirect('/user#invoice');
+    }
+    
+    // 請求書にItemのデータを挿入する
+    public function addInvoice(Request $request){
+        // 案件ID（Item_ID）を一つもらって、その案件のステータスを変更する。請求ヘッダIDを入れる。
+        $item = Item::find($request->item_id);
+        $item->states = $request->states;
+        $item->invoice_id = $request->invoice_id;
+        $item->save();
+        
+        // 請求明細の追加 88行目を参考にする
+        $bill = new Bill();
+        $bill->invoice_id = $request->invoice_id;
+        $bill->billing_item = $item->item_name;
+        $bill->quantity = 1;
+        $bill->bill_unit_price = $item->unit_price;
+        $bill->unit = '本';
+        $bill->save();
+        
+        
+        //請求ヘッダの金額、数量の再計算 111行目を参考にする(アップデート)
+        
+        
+        //もう１度、案件一覧表示
+        //$client = $item->client->client_name;
+        
+        $list = Item::where('client_id', '=', $request->client_id)->get();
+        $client = Client::find($request->client_id);
+        $invoiceList = Invoice::all();
+        return view('todo.items', compact('list', 'client', 'invoiceList'));
     }
 }

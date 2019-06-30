@@ -46,3 +46,4 @@ Route::get('/checkClient', 'InvoiceController@checkClient');
 Route::get('toAddInvoice/{id}','InvoiceController@toAddInvoice');
 Route::get('/addInvoice', 'InvoiceController@addInvoice');
 Route::post('addNewInvoice','InvoiceController@addNewInvoice')->name('addNewInvoice');
+Route::post('addInvoice','InvoiceController@addInvoice');

@@ -37,11 +37,11 @@
             {{Form::label('client_address', '住所')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('sales_tax_rate', ['消費税率を選んでください','0%(税抜)','8%(税込)', '5%(税込)'] , null, ['class' => 'select', 'id' => 'sales_tax_rate'])}}
+            {{Form::select('sales_tax_rate', [0 => '消費税率を選んでください', 1 => '0%(税抜)', 2 => '8%(税込)', 3 => '5%(税込)'] , null, ['class' => 'select', 'id' => 'sales_tax_rate'])}}
             {{Form::label('sales_tax_rate', '消費税率')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('withholding_tax_rate', ['源泉徴収税率を選んでください','0%(無課税)','10.21%', '20.42%'] , null, ['class' => 'select', 'id' => 'withholding_tax_rate'])}}
+            {{Form::select('withholding_tax_rate', [0 => '源泉徴収税率を選んでください', 1 =>'0%(無課税)', 2 => '10.21%', 3 => '20.42%'] , null, ['class' => 'select', 'id' => 'withholding_tax_rate'])}}
             {{Form::label('withholding_tax_rate', '源泉徴収税率')}}
           </div>
           <div class="input-field col s12">

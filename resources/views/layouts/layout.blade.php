@@ -8,7 +8,7 @@
     <!--Google Web Font-->
     <link href="https://fonts.googleapis.com/css?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <!--CSS-->
-    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="../css/styles.css" type="text/css" />
     <title>@yield('title')</title>
   </head>
 
@@ -31,29 +31,27 @@
           });
         });
 
-      <!--　サイドバーの初期化用JS　-->
+      //サイドバーの初期化用JS
         document.addEventListener('DOMContentLoaded', function() {
           var elems = document.querySelectorAll('.sidenav');
           var instances = M.Sidenav.init(elems, {});
         });
 
-
-
-      <!--datepickerの初期化用JS-->
+      // datepickerの初期化用JS
         const Calendar = document.querySelector('.datepicker');
         M.Datepicker.init(Calendar,{});
 
-      <!--datepickerのフォーマットを変える-->
+      // datepickerのフォーマットを変える
         $( function() {
           $( ".datepicker" ).datepicker({format: 'yyyy-mm-dd'});
         } );
 
-      <!-- モーダルウィンドウの開閉処理-->
+      // モーダルウィンドウの開閉処理
         $(function(){
             $('select').formSelect();
             $('.modal').modal();
             $('#states').on('change',function(){
-                $('#modal01').modal('open');
+              //alert();
             });
         });
         </script>
