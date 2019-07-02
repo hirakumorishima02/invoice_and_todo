@@ -10,7 +10,7 @@
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab right"><a class="tab_btn is-active-btn tab" href="#todo">案件</a></li>
+        <li class="tab right"><a class="tab_btn tab" href="#todo">案件</a></li>
         <li class="tab right"><a class="tab_btn tab" href="#invoice">請求書</a></li>
       </ul>
     </div>
@@ -70,4 +70,28 @@
           </div>
         </div>
     </div>
+<script>
+  $(function() {
+    //location.hashで#以下を取得 変数hashに格納
+    var hash = location.hash; 
+    //hashの中に#tab～が存在するか調べる。
+    hash = (hash.match(/^#invoice\d+$/) || [])[0];
+    //hashに要素が存在する場合、hashで取得した文字列（#tab2,#tab3等）から#より後を取得(tab2,tab3) 
+    if($(hash).length){
+     var tabname = hash.slice(1) ;
+    } else{
+ 　　　　// 要素が存在しなければtabnameにtab1を代入する
+ 　　　　var tabname = "";
+    }
+    //コンテンツを一度すべて非表示にし、
+      $('.tab_item').css('display','none');
+    //一度タブについているクラスselectを消し、
+      $('.tabs li').removeClass('is-active-item');
+      var tabno = $('ul.tab_area li#' + tabname).index();
+    //クリックされたタブと同じ順番のコンテンツを表示します。
+      $('.tab_item').eq(tabno).fadeIn();
+    //クリックされたタブのみにクラスselectをつけます。
+      $('ul.tabs li').eq(tabno).addClass('is-active-item')
+    });
+</script>
 @endsection

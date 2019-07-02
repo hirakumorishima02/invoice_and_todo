@@ -47,3 +47,5 @@ Route::get('toAddInvoice/{id}','InvoiceController@toAddInvoice');
 Route::get('/addInvoice', 'InvoiceController@addInvoice');
 Route::post('addNewInvoice','InvoiceController@addNewInvoice')->name('addNewInvoice');
 Route::post('addInvoice','InvoiceController@addInvoice');
+Route::post('/makeInvoice/{clientId}/{invoiceId}','InvoiceController@makeInvoice')->name('makeInvoice');
+Route::delete('/deleteFromBill/{id}','InvoiceController@deleteFromBill');

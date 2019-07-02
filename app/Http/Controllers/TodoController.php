@@ -124,4 +124,7 @@ class TodoController extends Controller
         $clientId = $item->client_id;
         return redirect()->action('TodoController@items', ['id' => $clientId]);
     }
+    public function makeInvoice(){
+        // PDF用の請求書画面への遷移
+    }
 }

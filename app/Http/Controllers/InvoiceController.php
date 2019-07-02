@@ -102,7 +102,7 @@ class InvoiceController extends Controller
         $invoice->billing_day = $request->billing_day;
         $invoice->save();
         
-        return redirect('/user#invoice');
+        return redirect('/user');
     }
     
     // 請求書にItemのデータを挿入する
@@ -122,9 +122,7 @@ class InvoiceController extends Controller
         $bill->unit = '本';
         $bill->save();
         
-        
         //請求ヘッダの金額、数量の再計算 111行目を参考にする(アップデート)
-        
         
         //もう１度、案件一覧表示
         //$client = $item->client->client_name;
@@ -133,5 +131,41 @@ class InvoiceController extends Controller
         $client = Client::find($request->client_id);
         $invoiceList = Invoice::all();
         return view('todo.items', compact('list', 'client', 'invoiceList'));
+        
     }
+    
+    public function deleteFromBill(Request $request)
+    {
+        $bill = Bill::where('id', '=', $request->id)->first();
+        $bill->delete();
+        return back();
+    }
+    
+     public function makeInvoice(Request $request, $invoiceId, $clientId)
+     {
+        $invoice = Invoice::where('id', '=', $request->invoice_id)->first();
+        $invoice->billing_name = $request->billing_name_clients;
+        $invoice->billing_day = $request->billing_day;
+        $invoice->invoice_title = $request->invoice_title;
+        $invoice->payment_day = $request->payment_day;
+        $invoice->save();
+         
+        $user_info = User_info::where('id', '=', $request->userInfo_id)->first();
+        $user_info->billing_name = $request->billing_name;
+        $user_info->postal_code = $request->postal_code;
+        $user_info->address = $request->address;
+        $user_info->tel_number = $request->tel_number;
+        $user_info->fax_number = $request->fax_number;
+        $user_info->billing_message = $request->billing_message;
+        $user_info->save();
+        
+         
+        $invoiceList = Invoice::where('id','=', $invoiceId)->get();
+        $user_infoList = User_info::all();
+        $billList = Bill::where('invoice_id','=', $invoiceId)->get();
+        // tax_rateとwithholding_tax_rateを引き出すために対象Clientを引き出したい
+        $clientList = Client::where('id','=', $clientId)->get();
+        
+        return view('invoice.pdfInvoice', compact('invoiceList','user_infoList','billList', 'clientList' , 'clientId' ,'invoiceId'));
+     }
 }

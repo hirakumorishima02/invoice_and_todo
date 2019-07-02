@@ -1,22 +1,11 @@
 @extends('layouts.layout')
-@section('title','請求書編集画面')
+@section('title','請求書')
 
 @section('body')
-    <div class="row">
-    <!--サイドメニュー-->
-      <div class="col s0 l2">
-        <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="{{ url('/user#invoice')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
-          <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
-          <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
-          <li><a href="{{ url('/addInvoice')}}">請求書作成<i class="material-icons left">add</i></a></li>
-        </ul>
-      </div>
-      
       <div class="col s12 offset-l1 l8">
     <nav class="header">
         <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
-    <h2 class="center-align">請求書画面</h2>
+    <h2 class="center-align">請求書</h2>
     </nav>
     @foreach($invoiceList as $val)
   {{Form::open(['url' => route('makeInvoice',['clientId'=>$val->client_id, 'invoiceId' => $val->id]),'method'=>'POST'])}}
@@ -27,8 +16,8 @@
                 <!--invoiceList-->
             
             <!--請求宛先名称-->
-            {{Form::label('billing_name_clients','請求先')}}
-            {{Form::text('billing_name_clients', $val->billing_name,['class' => 'validate', 'id' => 'billing_name_clients'])}}
+            {{Form::label('billing_name','請求先')}}
+            {{Form::text('billing_name', $val->billing_name,['class' => 'validate', 'id' => 'billing_name'])}}
 
             <!--自動割り当て-->
             {{Form::label('billing_day','請求日')}}
@@ -36,7 +25,7 @@
             
             <!--請求番号 テーブルカラム無し-->
             {{Form::label('billing_number','請求番号')}}
-            {{Form::text('billing_number', $val->billing_day.$val->id,['class' => 'validate', 'id' => 'billing_number'])}}
+            {{Form::text('billing_number', $val->billing_day.'-'.$val->id,['class' => 'validate', 'id' => 'billing_number'])}}
 
             <!--請求書のタイトル-->
             {{Form::label('invoice_title','件名')}}
@@ -95,9 +84,6 @@
                 <td>{{$val->unit}}</td>
                 <td>{{$val->bill_unit_price}}円</td>
                 <td>{{$val->quantity * $val->bill_unit_price}}</td>
-                <td>
-                  <a href="#" data-id="{{$val->id}}" class="waves-effect waves-light btn del">削除</a>
-                </td>
             </tr>
                 <?php $subtotal += $val->bill_unit_price; ?>
                 @endforeach
@@ -159,7 +145,6 @@
             <p>お振込み先:　{{$val->bank_account}}</p>
             @endforeach
             <!--user_infoListここまで-->
-      {{Form::submit('請求書の作成', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
   {{Form::close()}}
 
   <!--deleteFromBill用form-->
