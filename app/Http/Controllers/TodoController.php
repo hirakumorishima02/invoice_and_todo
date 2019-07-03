@@ -8,6 +8,8 @@ use App\User;
 use App\Item;
 use App\Invoice;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ItemRequest;
+use App\Http\Requests\ClientRequest;
 
 class TodoController extends Controller
 {
@@ -30,7 +32,7 @@ class TodoController extends Controller
     }
     
     // クライアント情報の追加・更新・削除
-    public function addNewClient(Request $request){
+    public function addNewClient(ClientRequest $request){
         $client = new Client();
         $client->user_id = Auth::user()->id;
         $client->client_name = $request->client_name;
@@ -49,7 +51,7 @@ class TodoController extends Controller
         $list = Client::find($id);
         return view('todo.editClient', compact('list'));
     }
-    public function updateClient(Request $request){
+    public function updateClient(ClientRequest $request){
         $client = Client::where('id', '=', $request->id)->first();
         $client->user_id = Auth::user()->id;
         $client->client_name = $request->client_name;
@@ -73,14 +75,14 @@ class TodoController extends Controller
     }
     
     // 案件情報の追加・更新・削除
-    public function addNewItem(Request $request){
+    public function addNewItem(ItemRequest $request){
         $item = new Item();
         $item->user_id = Auth::user()->id;
         $item->client_id = $request->client_id;
         $item->item_name = $request->item_name;
         $item->delivery_date = $request->delivery_date;
         $item->unit_price = $request->unit_price;
-        $item->states = $request->states;
+        $item->states = '0';
         $item->memo = $request->memo;
         $item->save();
         
@@ -91,7 +93,7 @@ class TodoController extends Controller
         $clientList = Client::all();
         return view('todo.editItem', compact('list', 'clientList'));
     }
-    public function updateItem(Request $request, $id){
+    public function updateItem(ItemRequest $request, $id){
         $item = Item::where('id', '=', $request->id)->first();
         $item->user_id = Auth::user()->id;
         $item->client_id = $request->client_id;

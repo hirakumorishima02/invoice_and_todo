@@ -56,4 +56,17 @@
       {{Form::close()}}
       </div>
     </div>
+    <div class="row">
+    <div class="col s12 offset-l3 l8">
+      @if ($errors->any())
+          <div>
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
+    </div>
+    </div>
 @endsection

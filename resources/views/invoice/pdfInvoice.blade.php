@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.pdfLayout')
 @section('title','請求書')
 
 @section('body')

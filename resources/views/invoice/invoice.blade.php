@@ -9,7 +9,7 @@
           <li><a href="{{ url('/user#invoice')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
           <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
           <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
-          <li><a href="{{ url('/addInvoice')}}">請求書作成<i class="material-icons left">add</i></a></li>
+          <li><a href="{{ url('/checkClient')}}">請求書作成<i class="material-icons left">add</i></a></li>
         </ul>
       </div>
       
