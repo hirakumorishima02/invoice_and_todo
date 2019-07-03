@@ -144,9 +144,13 @@ class InvoiceController extends Controller
      public function makeInvoice(Request $request, $invoiceId, $clientId)
      {
         $invoice = Invoice::where('id', '=', $request->invoice_id)->first();
+        $invoice->subtotal = $request->subtotal;
+        $invoice->withholding_tax = $request->withholding_subtotal;
+        $invoice->tax_amount = $request->sales_subtotal;
+        $invoice->sum_price = $request->sum_price;
         $invoice->billing_name = $request->billing_name_clients;
-        $invoice->billing_day = $request->billing_day;
         $invoice->invoice_title = $request->invoice_title;
+        $invoice->billing_day = $request->billing_day;
         $invoice->payment_day = $request->payment_day;
         $invoice->save();
          

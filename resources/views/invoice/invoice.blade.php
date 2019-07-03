@@ -19,13 +19,13 @@
     <h2 class="center-align">請求書画面</h2>
     </nav>
     @foreach($invoiceList as $val)
-  {{Form::open(['url' => route('makeInvoice',['clientId'=>$val->client_id, 'invoiceId' => $val->id]),'method'=>'POST'])}}
+  {{Form::open(['url' => route('makeInvoice',['clientId'=>$val->client_id, 'invoiceId' => $val->id]),'method'=>'POST', 'target'=>'_blank'])}}
     {{ csrf_field() }}
         <div class="row">
             <!--請求先-->
             <div class="col s5">
                 <!--invoiceList-->
-            
+
             <!--請求宛先名称-->
             {{Form::label('billing_name_clients','請求先')}}
             {{Form::text('billing_name_clients', $val->billing_name,['class' => 'validate', 'id' => 'billing_name_clients'])}}
@@ -110,6 +110,7 @@
                 <td></td>
                 <td>小計</td>
                 <td>{{ $subtotal }}円</td>
+                {{Form::hidden('subtotal',$subtotal)}}
             </tr>
             <tr>
                 <td></td>
@@ -123,6 +124,7 @@
                 @elseif($val->sales_tax_rate == 3.00)
                 <td>{{$sales_subtotal = $subtotal * 0.05}}円</td>
                 @endif
+                {{Form::hidden('sales_subtotal',$sales_subtotal)}}
             </tr>
             <tr>
                 <td></td>
@@ -136,13 +138,15 @@
                 @elseif($val->withholding_tax_rate == 3.00)
                 <td>{{$withholding_subtotal = $subtotal * 0.2042}}円</td>
                 @endif
+                {{Form::hidden('withholding_subtotal',$withholding_subtotal)}}
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>合計</td>
-                <td>{{$subtotal - $sales_subtotal - $withholding_subtotal}}円</td>
+                <td>{{$sum_price = $subtotal - $sales_subtotal - $withholding_subtotal}}円</td>
+                {{Form::hidden('sum_price',$sum_price)}}
                 @endforeach
                 <!--invoiceListここまで-->
             </tr>

@@ -8,7 +8,7 @@
     <!--Google Web Font-->
     <link href="https://fonts.googleapis.com/css?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <!--CSS-->
-    <link rel="stylesheet" href="../css/styles.css" type="text/css" />
+    <link href="{{ secure_asset('css/styles.css') }}" rel="stylesheet">
     <title>@yield('title')</title>
   </head>
 
