@@ -15,6 +15,8 @@ use App\Http\Requests\InvoiceRequest;
 use TCPDF;
 use TCPDF_FONTS;
 
+use PDF;
+
 
 
 class InvoiceController extends Controller
@@ -167,28 +169,8 @@ class InvoiceController extends Controller
         // tax_rateとwithholding_tax_rateを引き出すために対象Clientを引き出したい
         $clientList = Client::where('id','=', $clientId)->get();
         
-        // PDF生成　－　A4 縦に設定
-        $pdf = new TCPDF("P", "mm", "A4", true, "UTF-8" );
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
-        
-        // PDF プロパティ設定
-        $pdf->SetTitle($request->invoice_title);  // PDFドキュメントのタイトルを設定  http://tcpdf.penlabo.net/method/s/SetTitle.html
-        $pdf->SetAuthor($request->billing_name);  // PDFドキュメントの著者名を設定  http://tcpdf.penlabo.net/method/s/SetAuthor.html
-        $pdf->SetSubject($request->invoice_title);  // PDFドキュメントのサブジェクト(表題)を設定  http://tcpdf.penlabo.net/method/s/SetSubject.html
-        $pdf->SetCreator('Hiraku Morishima');  // PDFドキュメントの製作者名を設定  http://tcpdf.penlabo.net/method/s/SetCreator.html
-
-        // 日本語フォント設定
-        $pdf->setFont('kozminproregular','',10);
-
-        // ページ追加
-        $pdf->addPage();
-
-         // HTMLを描画、viewの指定と変数代入
-        $pdf->writeHTML(view('invoice.pdfInvoice', compact('invoiceList','user_infoList','billList', 'clientList' , 'clientId' ,'invoiceId')));
-        
-        // 出力指定 ファイル名、拡張子、D(ダウンロード)
-        $pdf->output($request->invoice_title . '.pdf', 'D');
-        return;
+        // PDF生成
+        $pdf = PDF::loadView('invoice.pdfInvoice', compact('invoiceList','user_infoList','billList', 'clientList' , 'clientId' ,'invoiceId'));
+        return $pdf->stream('invoice.pdf');
      }
 }
