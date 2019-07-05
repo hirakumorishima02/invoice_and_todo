@@ -104,15 +104,9 @@
 	              @if($list->fraction == 1)
 	              <option value="1" selected>切り上げ</option>
 	              <option value="2">切り下げ</option>
-	              <option value="3">四捨五入</option>
-	              @elseif($list->fraction == 2)
-	              <option value="1">切り上げ</option>
-	              <option value="2" selected>切り下げ</option>
-	              <option value="3">四捨五入</option>
 	              @else
 	              <option value="1">切り上げ</option>
-	              <option value="2">切り下げ</option>
-	              <option value="3" selected>四捨五入</option>
+	              <option value="2" selected>切り下げ</option>
 	              @endif
 	            </select>
 	            <label for="fraction">消費税・源泉徴収税の端数処理</label>

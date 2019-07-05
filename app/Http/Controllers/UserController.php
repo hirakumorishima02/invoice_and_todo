@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Client;
 
 class UserController extends Controller
@@ -16,7 +17,7 @@ class UserController extends Controller
             $active1 = "";
             $active2 = "is-active-item";
         }
-        $list = Client::get();
+        $list = Client::where('user_id','=', Auth::user()->id)->get();
         return view('user.user', compact('list','active1','active2'));
     }
 }

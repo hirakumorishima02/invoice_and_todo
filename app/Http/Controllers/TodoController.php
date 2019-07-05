@@ -21,13 +21,13 @@ class TodoController extends Controller
         return view('todo.addClient');
     }
     public function addItem(){
-        $list = Client::all();
+        $list = Client::where('user_id','=',Auth::user()->id)->get();
         return view('todo.addItem', compact('list'));
     }
     public function items($id){
         $list = Item::where('client_id', '=', $id)->get();
         $client = Client::find($id);
-        $invoiceList = Invoice::all();
+        $invoiceList = Invoice::where('client_id','=', $id)->get();
         return view('todo.items', compact('list','client', 'invoiceList'));
     }
     
@@ -45,7 +45,7 @@ class TodoController extends Controller
         $client->fraction = $request->fraction;
         $client->save();
         
-        return redirect('/user');
+        return redirect('/user/1');
     }
     public function editClient($id){
         $list = Client::find($id);
@@ -71,7 +71,7 @@ class TodoController extends Controller
         $client = Client::where('id', '=', $request->id)->first();
         $client->delete();
         
-        return redirect('/user');
+        return redirect('/user/1');
     }
     
     // 案件情報の追加・更新・削除
@@ -90,7 +90,7 @@ class TodoController extends Controller
     }
     public function editItem($id){
         $list = Item::find($id);
-        $clientList = Client::all();
+        $clientList = Client::where('user_id','=',Auth::user()->id)->get();
         return view('todo.editItem', compact('list', 'clientList'));
     }
     public function updateItem(ItemRequest $request, $id){
@@ -108,8 +108,8 @@ class TodoController extends Controller
         return redirect()->action('TodoController@items', ['id' => $clientId]);
     }
     public function updateItemStates(Request $request, $id){
-        $list = Item::all();
-        $clientList = Client::all();
+        $list = Item::where('user_id','=',Auth::user()->id)->get();
+        $clientList = Client::where('user_id','=',Auth::user()->id)->get();
         
         $item = Item::where('id', '=', $request->id)->first();
         $item->states = $request->states;

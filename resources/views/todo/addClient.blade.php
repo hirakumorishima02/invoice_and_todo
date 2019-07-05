@@ -69,7 +69,6 @@
 	              <option value="" disabled selected>端数処理を選んでください。</option>
 	              <option value="1">切り上げ</option>
 	              <option value="2">切り下げ</option>
-	              <option value="3">四捨五入</option>
 	            </select>
 	            <label for="fraction">消費税・源泉徴収税の端数処理</label>
 	          </div>

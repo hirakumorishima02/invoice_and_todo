@@ -36,7 +36,7 @@
             <!--請求書のタイトル-->
             <p>件名:{{$val->invoice_title}}</p>
             <p>下記のとおりご請求申し上げます。</p>
-            <h2><u>ご請求金額<span>¥{{$val->sum_price}}-</span></u></h2>
+            <h2><u>ご請求金額<span>¥{{ceil($val->sum_price)}}-</span></u></h2>
             <!--支払期限-->
             <p>お支払い期限:{{$val->billing_day}}</p>
             @endforeach
@@ -96,11 +96,29 @@
     <td class="td-height"></td>
     <td class="td-height">消費税</td>
     @if($val->sales_tax_rate == 1.00)
-    <td class="td-height">{{$sales_subtotal = $subtotal * 0}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
+        @else
+        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0)}}円</td>
+        @endif
     @elseif($val->sales_tax_rate == 2.00)
-    <td class="td-height">{{$sales_subtotal = $subtotal * 0.08}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.08)}}円</td>
+        @else
+        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
+        @endif
     @elseif($val->sales_tax_rate == 3.00)
-    <td class="td-height">{{$sales_subtotal = $subtotal * 0.05}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.1)}}円</td>
+        @else
+        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
+        @endif
+    @else
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.05)}}円</td>
+        @else
+        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
+        @endif
     @endif
 </tr>
 <tr>
@@ -108,18 +126,34 @@
     <td></td>
     <td class="td-height">源泉徴収税</td>
     @if($val->withholding_tax_rate == 1.00)
-    <td class="td-height">{{$withholding_subtotal = $subtotal * 0}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($withholding_subtotal = $subtotal * 0)}}円</td>
+        @else
+        <td class="td-height">{{floor($withholding_subtotal = $subtotal * 0)}}円</td>
+        @endif
     @elseif($val->withholding_tax_rate == 2.00)
-    <td class="td-height">{{$withholding_subtotal = $subtotal * 0.1021}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($withholding_subtotal = $subtotal * 0.1021)}}円</td>
+        @else
+        <td class="td-height">{{floor($withholding_subtotal = $subtotal * 0.1021)}}円</td>
+        @endif
     @elseif($val->withholding_tax_rate == 3.00)
-    <td class="td-height">{{$withholding_subtotal = $subtotal * 0.2042}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+        @else
+        <td class="td-height">{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+        @endif
     @endif
 </tr>
 <tr>
     <td class="td-height"></td>
     <td class="td-height"></td>
     <td class="td-height">合計</td>
-    <td class="td-height">{{$subtotal - $sales_subtotal - $withholding_subtotal}}円</td>
+        @if($val->fraction == 1)
+        <td class="td-height">{{$sum_price = floor($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+        @else
+        <td class="td-height">{{$sum_price = ceil($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+        @endif
     @endforeach
     <!--invoiceListここまで-->
 </tr>

@@ -29,7 +29,13 @@
             <!--請求宛先名称-->
             {{Form::label('billing_name_clients','請求先')}}
             {{Form::text('billing_name_clients', $val->billing_name,['class' => 'validate', 'id' => 'billing_name_clients'])}}
-
+    @endforeach
+    @foreach($clientList as $val)
+            <!--請求宛先名称-->
+            {{Form::label('personnel_name','担当者')}}
+            {{Form::text('personnel_name', $val->personnel,['class' => 'validate', 'id' => 'personnel_name'])}}
+    @endforeach
+    @foreach($invoiceList as $val)
             <!--自動割り当て-->
             {{Form::label('billing_day','請求日')}}
             {{Form::text('billing_day', $val->billing_day ,['class' => 'datepicker', 'id' => 'billing_day'])}}
@@ -90,16 +96,21 @@
                 <?php $subtotal = 0 ?>
                 @foreach($billList as $val)
             <tr>
-                <td>{{$val->billing_item}}</td>
-                <td>{{$val->quantity}}</td>
-                <td>{{$val->unit}}</td>
-                <td>{{$val->bill_unit_price}}円</td>
-                <td>{{$val->quantity * $val->bill_unit_price}}</td>
-                <td>
-                  <a href="#" data-id="{{$val->id}}" class="waves-effect waves-light btn del">削除</a>
+                <!--品番・品名-->
+                <td>{{Form::text('billing_item[]', $val->billing_item,['class' => 'validate', 'id' => 'billing_item'])}}</td>
+                <!--数量-->
+                <td>{{Form::text('quantity[]', $val->quantity,['class' => 'validate', 'id' => 'quantity'])}}</td>
+                <!--単位-->
+                <td>{{Form::text('unit[]', $val->unit,['class' => 'validate', 'id' => 'unit'])}}</td>
+                <!--単価-->
+                <td>{{Form::text('bill_unit_price[]', ceil($val->bill_unit_price),['class' => 'validate', 'id' => 'bill_unit_price'])}}</td>
+                <!--金額-->
+                <td>{{$total = $val->quantity * $val->bill_unit_price}}</td>
+                <td><a href="#" data-id="{{$val->id}}" class="waves-effect waves-light btn del">削除</a>
                 </td>
+                {{Form::hidden('bill_id[]', $val->id)}}
             </tr>
-                <?php $subtotal += $val->bill_unit_price; ?>
+                <?php $subtotal += $total; ?>
                 @endforeach
                 <!--billListここまで-->
             <tr>
@@ -120,34 +131,26 @@
                 @if($val->sales_tax_rate == 1.00)
                     @if($val->fraction == 1)
                     <td>{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{floor($sales_subtotal = $subtotal * 0)}}円</td>
                     @else
-                    <td>{{round($sales_subtotal = $subtotal * 0)}}円</td>
+                    <td>{{floor($sales_subtotal = $subtotal * 0)}}円</td>
                     @endif
                 @elseif($val->sales_tax_rate == 2.00)
                     @if($val->fraction == 1)
                     <td>{{ceil($sales_subtotal = $subtotal * 0.08)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
                     @else
-                    <td>{{round($sales_subtotal = $subtotal * 0.08)}}円</td>
+                    <td>{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
                     @endif
                 @elseif($val->sales_tax_rate == 3.00)
                     @if($val->fraction == 1)
                     <td>{{ceil($sales_subtotal = $subtotal * 0.1)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
                     @else
-                    <td>{{round($sales_subtotal = $subtotal * 0.1)}}円</td>
+                    <td>{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
                     @endif
                 @else
                     @if($val->fraction == 1)
                     <td>{{ceil($sales_subtotal = $subtotal * 0.05)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
                     @else
-                    <td>{{round($sales_subtotal = $subtotal * 0.05)}}円</td>
+                    <td>{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
                     @endif
                 @endif
                 {{Form::hidden('sales_subtotal',$sales_subtotal)}}
@@ -160,26 +163,20 @@
                 @if($val->withholding_tax_rate == 1.00)
                     @if($val->fraction == 1)
                         <td>{{ceil($withholding_subtotal = $subtotal * 0)}}円</td>
-                    @elseif($val->fraction == 2)
-                        <td>{{floor($withholding_subtotal = $subtotal * 0)}}円</td>
                     @else
-                        <td>{{round($withholding_subtotal = $subtotal * 0)}}円</td>
+                        <td>{{floor($withholding_subtotal = $subtotal * 0)}}円</td>
                     @endif
                 @elseif($val->withholding_tax_rate == 2.00)
                     @if($val->fraction == 1)
                     <td>{{ceil($withholding_subtotal = $subtotal * 0.1021)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{floor($withholding_subtotal = $subtotal * 0.1021)}}円</td>
                     @else
-                    <td>{{round($withholding_subtotal = $subtotal * 0.1021)}}円</td>
+                    <td>{{floor($withholding_subtotal = $subtotal * 0.1021)}}円</td>
                     @endif
                 @elseif($val->withholding_tax_rate == 3.00)
                     @if($val->fraction == 1)
                     <td>{{ceil($withholding_subtotal = $subtotal * 0.2042)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
                     @else
-                    <td>{{round($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+                    <td>{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
                     @endif
                 @endif
                 {{Form::hidden('withholding_subtotal',$withholding_subtotal)}}
@@ -191,10 +188,8 @@
                 <td>合計</td>
                     @if($val->fraction == 1)
                     <td>{{$sum_price = floor($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
-                    @elseif($val->fraction == 2)
-                    <td>{{$sum_price = ceil($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
                     @else
-                    <td>{{$sum_price = round($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+                    <td>{{$sum_price = ceil($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
                     @endif
                 {{Form::hidden('sum_price',$sum_price)}}
                 @endforeach
