@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="{{url('/user')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
+          <li><a href="{{url('/user/1')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
           <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
           <li><a href="{{url('/addClient')}}">クライアント追加<i class="material-icons left">add</i></a></li>
           <li><a href="{{url('addItem')}}">案件追加<i class="material-icons left">add</i></a></li>
@@ -37,21 +37,42 @@
             {{Form::label('client_address', '住所')}}
           </div>
           <div class="input-field col s12">
-            {{Form::select('sales_tax_rate', [0 => '消費税率を選んでください', 1 => '0%(税抜)', 2 => '8%(税込)', 3 => '5%(税込)'] , null, ['class' => 'select', 'id' => 'sales_tax_rate'])}}
-            {{Form::label('sales_tax_rate', '消費税率')}}
-          </div>
+	            <select id="sales_tax_rate" class="select" name="sales_tax_rate">
+	              <option value="" disabled selected>消費税率を選んでください。</option>
+	              <option value="1">0%(税抜)</option>
+	              <option value="2">8%(税込)</option>
+	              <option value="3">10%(税込)</option>
+	              <option value="4">5%(税込)</option>
+	            </select>
+	            <label for="sales_tax_rate">消費税率</label>
+	          </div>
           <div class="input-field col s12">
-            {{Form::select('withholding_tax_rate', [0 => '源泉徴収税率を選んでください', 1 =>'0%(無課税)', 2 => '10.21%', 3 => '20.42%'] , null, ['class' => 'select', 'id' => 'withholding_tax_rate'])}}
-            {{Form::label('withholding_tax_rate', '源泉徴収税率')}}
-          </div>
-          <div class="input-field col s12">
-            {{Form::select('tax_category', ['税区分を選んでください。','税別','税込', '免税'] , null, ['class' => 'select', 'id' => 'tax_category'])}}
-            {{Form::label('tax_category', '税区分')}}
-          </div>
-          <div class="input-field col s12">
-            {{Form::select('fraction', ['端数処理を選んでください。','切り上げ','切り下げ', '四捨五入'] , null, ['class' => 'select', 'id' => 'fraction'])}}
-            {{Form::label('fraction', '税区分')}}
-          </div>
+	            <select id="withholding_tax_rate" class="select" name="withholding_tax_rate">
+	              <option value="" disabled selected>源泉徴収税率を選んでください。</option>
+	              <option value="1">0%(無課税)</option>
+	              <option value="2">10.21%</option>
+	              <option value="3">20.42%</option>
+	            </select>
+	            <label for="withholding_tax_rate">源泉徴収税率</label>
+	          </div>
+	          <div class="input-field col s12">
+	            <select id="tax_category" class="select" name="tax_category">
+	              <option value="" disabled selected>税区分を選んでください。</option>
+	              <option value="1">税別</option>
+	              <option value="2">税込</option>
+	              <option value="3">免税</option>
+	            </select>
+	            <label for="tax_category">消費税の表示設定</label>
+	          </div>
+	          <div class="input-field col s12">
+	            <select id="fraction" class="select" name="fraction">
+	              <option value="" disabled selected>端数処理を選んでください。</option>
+	              <option value="1">切り上げ</option>
+	              <option value="2">切り下げ</option>
+	              <option value="3">四捨五入</option>
+	            </select>
+	            <label for="fraction">消費税・源泉徴収税の端数処理</label>
+	          </div>
           {{Form::submit('クライアント情報追加', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
       {{Form::close()}}
       </div>

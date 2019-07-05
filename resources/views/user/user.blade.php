@@ -17,12 +17,11 @@
   </nav>
     
     <!-- タブのコンテンツ部分 -->
-    <div class="tab_item is-active-item row" id="todo">
+    <div class="tab_item {{$active1}} row" id="todo">
       <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>
       <!--案件のサイドメニュー-->
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="#">クライアント一覧<i class="material-icons left">person</i></a></li>
           <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
           <li><a href="{{ url('/addClient')}}">クライアント追加<i class="material-icons left">add</i></a></li>
           <li><a href="{{ url('/addItem')}}">案件追加<i class="material-icons left">add</i></a></li>
@@ -50,7 +49,7 @@
         </div>
     </div>
       
-    <div class="tab_item row" id="invoice">
+    <div class="tab_item {{$active2}} row" id="invoice">
       <!--請求書のサイドメニュー-->
       <div class="col s0 l2">
         <a href="#" data-target="slide-out2" class="sidenav-trigger btn-floating"><i class="medium z-depth-1 material-icons">add</i></a>

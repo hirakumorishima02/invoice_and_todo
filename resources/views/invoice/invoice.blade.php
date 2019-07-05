@@ -6,7 +6,7 @@
     <!--サイドメニュー-->
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
-          <li><a href="{{ url('/user#invoice')}}">クライアント一覧<i class="material-icons left">person</i></a></li>
+          <li><a href="{{ url('/user/2')}}">請求書一覧<i class="material-icons left">person</i></a></li>
           <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
           <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
           <li><a href="{{ url('/checkClient')}}">請求書作成<i class="material-icons left">add</i></a></li>
@@ -118,11 +118,37 @@
                 <td></td>
                 <td>消費税</td>
                 @if($val->sales_tax_rate == 1.00)
-                <td>{{$sales_subtotal = $subtotal * 0}}円</td>
+                    @if($val->fraction == 1)
+                    <td>{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{floor($sales_subtotal = $subtotal * 0)}}円</td>
+                    @else
+                    <td>{{round($sales_subtotal = $subtotal * 0)}}円</td>
+                    @endif
                 @elseif($val->sales_tax_rate == 2.00)
-                <td>{{$sales_subtotal = $subtotal * 0.08}}円</td>
+                    @if($val->fraction == 1)
+                    <td>{{ceil($sales_subtotal = $subtotal * 0.08)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
+                    @else
+                    <td>{{round($sales_subtotal = $subtotal * 0.08)}}円</td>
+                    @endif
                 @elseif($val->sales_tax_rate == 3.00)
-                <td>{{$sales_subtotal = $subtotal * 0.05}}円</td>
+                    @if($val->fraction == 1)
+                    <td>{{ceil($sales_subtotal = $subtotal * 0.1)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
+                    @else
+                    <td>{{round($sales_subtotal = $subtotal * 0.1)}}円</td>
+                    @endif
+                @else
+                    @if($val->fraction == 1)
+                    <td>{{ceil($sales_subtotal = $subtotal * 0.05)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
+                    @else
+                    <td>{{round($sales_subtotal = $subtotal * 0.05)}}円</td>
+                    @endif
                 @endif
                 {{Form::hidden('sales_subtotal',$sales_subtotal)}}
             </tr>
@@ -132,11 +158,29 @@
                 <td></td>
                 <td>源泉徴収税</td>
                 @if($val->withholding_tax_rate == 1.00)
-                <td>{{$withholding_subtotal = $subtotal * 0}}円</td>
+                    @if($val->fraction == 1)
+                        <td>{{ceil($withholding_subtotal = $subtotal * 0)}}円</td>
+                    @elseif($val->fraction == 2)
+                        <td>{{floor($withholding_subtotal = $subtotal * 0)}}円</td>
+                    @else
+                        <td>{{round($withholding_subtotal = $subtotal * 0)}}円</td>
+                    @endif
                 @elseif($val->withholding_tax_rate == 2.00)
-                <td>{{$withholding_subtotal = $subtotal * 0.1021}}円</td>
+                    @if($val->fraction == 1)
+                    <td>{{ceil($withholding_subtotal = $subtotal * 0.1021)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{floor($withholding_subtotal = $subtotal * 0.1021)}}円</td>
+                    @else
+                    <td>{{round($withholding_subtotal = $subtotal * 0.1021)}}円</td>
+                    @endif
                 @elseif($val->withholding_tax_rate == 3.00)
-                <td>{{$withholding_subtotal = $subtotal * 0.2042}}円</td>
+                    @if($val->fraction == 1)
+                    <td>{{ceil($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+                    @else
+                    <td>{{round($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+                    @endif
                 @endif
                 {{Form::hidden('withholding_subtotal',$withholding_subtotal)}}
             </tr>
@@ -145,7 +189,13 @@
                 <td></td>
                 <td></td>
                 <td>合計</td>
-                <td>{{$sum_price = $subtotal - $sales_subtotal - $withholding_subtotal}}円</td>
+                    @if($val->fraction == 1)
+                    <td>{{$sum_price = floor($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+                    @elseif($val->fraction == 2)
+                    <td>{{$sum_price = ceil($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+                    @else
+                    <td>{{$sum_price = round($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+                    @endif
                 {{Form::hidden('sum_price',$sum_price)}}
                 @endforeach
                 <!--invoiceListここまで-->

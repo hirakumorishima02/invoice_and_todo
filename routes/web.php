@@ -16,7 +16,7 @@ Route::get('/', 'PageController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 // ユーザーページ
-Route::get('/user', 'UserController@user');
+Route::get('/user/{activeNo}', 'UserController@user');
 
 // クライアント情報の追加・更新・削除
 Route::get('/addClient', 'TodoController@addClient');

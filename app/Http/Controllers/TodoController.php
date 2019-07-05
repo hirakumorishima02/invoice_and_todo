@@ -64,7 +64,7 @@ class TodoController extends Controller
         $client->fraction = $request->fraction;
         $client->save();
         
-        return redirect('/user');
+        return redirect('/user/1');
     }
     public function deleteClient(Request $request)
     {
