@@ -80,21 +80,22 @@
     <td class="td-height">{{$val->bill_unit_price}}円</td>
     <td class="td-height">{{$val->quantity * $val->bill_unit_price}}</td>
 </tr>
-    <?php $subtotal += $val->bill_unit_price; ?>
+    <?php $i = $val->quantity * $val->bill_unit_price ?>
+    <?php $subtotal += $i ?>
     @endforeach
     <!--billListここまで-->
 <tr>
     <!--invoiceList-->
-    @foreach($clientList as $val)
     <td class="td-height" border="0"></td>
     <td class="td-height"></td>
     <td class="td-height">小計</td>
-    <td class="td-height">{{ $subtotal }}円</td>
+    <td class="td-height">{{ ceil($subtotal) }}円</td>
 </tr>
 <tr>
     <td class="td-height"></td>
     <td class="td-height"></td>
     <td class="td-height">消費税</td>
+    @foreach($clientList as $val)
     @if($val->sales_tax_rate == 1.00)
         @if($val->fraction == 1)
         <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0)}}円</td>

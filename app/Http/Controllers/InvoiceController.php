@@ -140,9 +140,9 @@ class InvoiceController extends Controller
         return back();
     }
     
-     public function makeInvoice(Request $request, $invoiceId, $clientId)
+     public function makeInvoice(Request $request, $clientId, $invoiceId)
      {
-        $invoice = Invoice::where('id', '=', $request->invoice_id)->first();
+        $invoice = Invoice::where('id', '=', $invoiceId)->first();
         $invoice->subtotal = $request->subtotal;
         $invoice->withholding_tax = $request->withholding_subtotal;
         $invoice->tax_amount = $request->sales_subtotal;
@@ -162,17 +162,16 @@ class InvoiceController extends Controller
         $user_info->billing_message = $request->billing_message;
         $user_info->save();
         
-        
-   $i = 0;
-   foreach($request->bill_id as $id){
-       $bill = Bill::find($id);
-       $bill->billing_item = $request->billing_item[$i];
-       $bill->unit = $request->unit[$i];
-       $bill->quantity = $request->quantity[$i];
-       $bill->bill_unit_price = $request->bill_unit_price[$i];
-       $bill->save();
-       $i++;
-   }
+       $i = 0;
+       foreach($request->bill_id as $id){
+           $bill = Bill::find($id);
+           $bill->billing_item = $request->billing_item[$i];
+           $bill->unit = $request->unit[$i];
+           $bill->quantity = $request->quantity[$i];
+           $bill->bill_unit_price = $request->bill_unit_price[$i];
+           $bill->save();
+           $i++;
+       }
          
         $invoiceList = Invoice::where('id','=', $invoiceId)->get();
         $user_infoList = User_info::where('user_id','=',Auth::user()->id)->get();

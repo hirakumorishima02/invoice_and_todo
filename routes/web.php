@@ -49,3 +49,7 @@ Route::post('addNewInvoice','InvoiceController@addNewInvoice')->name('addNewInvo
 Route::post('addInvoice','InvoiceController@addInvoice');
 Route::post('/makeInvoice/{clientId}/{invoiceId}','InvoiceController@makeInvoice')->name('makeInvoice');
 Route::delete('/deleteFromBill/{id}','InvoiceController@deleteFromBill');
+
+
+// 動作確認用
+Route::get('/calendar','CalendarController@test');

@@ -7,7 +7,7 @@
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed ">
           <li><a href="{{ url('/user/2')}}">請求書一覧<i class="material-icons left">person</i></a></li>
-          <li><a href="#">案件カレンダー<i class="material-icons left">date_range</i></a></li>
+          <li><a href="/calendar">案件カレンダー<i class="material-icons left">date_range</i></a></li>
           <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
           <li><a href="{{ url('/checkClient')}}">請求書作成<i class="material-icons left">add</i></a></li>
         </ul>
@@ -99,35 +99,36 @@
                 <!--品番・品名-->
                 <td>{{Form::text('billing_item[]', $val->billing_item,['class' => 'validate', 'id' => 'billing_item'])}}</td>
                 <!--数量-->
-                <td>{{Form::text('quantity[]', $val->quantity,['class' => 'validate', 'id' => 'quantity'])}}</td>
+                <td><input type="text" name="quantity[]" value="{{$val->quantity}}" class="validate quantity" id="quantity"></td>
                 <!--単位-->
                 <td>{{Form::text('unit[]', $val->unit,['class' => 'validate', 'id' => 'unit'])}}</td>
                 <!--単価-->
-                <td>{{Form::text('bill_unit_price[]', ceil($val->bill_unit_price),['class' => 'validate', 'id' => 'bill_unit_price'])}}</td>
+                <td><input type="text" name="bill_unit_price[]" value="{{ceil($val->bill_unit_price)}}" class="validate bill_unit_price" id="bill_unit_price"></td>
                 <!--金額-->
-                <td>{{$total = $val->quantity * $val->bill_unit_price}}</td>
+                <td><span class="ans">{{$val->quantity * $val->bill_unit_price}}</span></td>
                 <td><a href="#" data-id="{{$val->id}}" class="waves-effect waves-light btn del">削除</a>
                 </td>
                 {{Form::hidden('bill_id[]', $val->id)}}
             </tr>
-                <?php $subtotal += $total; ?>
+                <?php $i = $val->quantity * $val->bill_unit_price ?>
+                <?php $subtotal += $i ?>
                 @endforeach
                 <!--billListここまで-->
             <tr>
                 <!--invoiceList-->
-                @foreach($clientList as $val)
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>小計</td>
-                <td>{{ $subtotal }}円</td>
-                {{Form::hidden('subtotal',$subtotal)}}
+                <td class="subtotal">{{ $subtotal }}円</td>
+                {{Form::hidden('subtotal', $subtotal)}}
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>消費税</td>
+                @foreach($clientList as $val)
                 @if($val->sales_tax_rate == 1.00)
                     @if($val->fraction == 1)
                     <td>{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
@@ -235,5 +236,15 @@
                 }
             });
         }
+        // 計算
+        $(".quantity,.bill_unit_price").on('keyup',function() {
+            var $_t = $( this ).parent().parent();
+            var quantityVal = $_t.find( '.quantity' );
+            var  num01 = isNaN(quantityVal.val()) ? 0 : quantityVal.val();
+            var bill_unitVal = $_t.find( '.bill_unit_price' );
+            var num02 = isNaN(bill_unitVal.val()) ?  0 : bill_unitVal.val();
+            var sum = num01 * num02;
+            $_t.find('.ans').html(sum);
+        });
     </script>
 @endpush
