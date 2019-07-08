@@ -41,7 +41,7 @@ class Calendar
 {$year}/{$month}
 <a class="btn btn-primary" href="/calendar?year={$next_year}&month={$next_month}" role="button">翌月&gt;</a>
 </h2>
-<table class="table table-bordered" style="table-layout:fixed;">
+<table class="table table-bordered highlight" width="100%" style="table-layout: fixed;">
 <tr>
   <th scope="col">Sun</th>
   <th scope="col">Mon</th>
@@ -61,13 +61,13 @@ EOS;
                     // 先月・来月の日付の場合
                     $this->html .= "<td>&nbsp;</td>";
                 } else {
-                  $this->html .= "<td>" . $day ."&nbsp"; 
+                  $this->html .= "<td style='vertical-align: top;'>" . $day ."&nbsp<br>"; 
                   $target = date("Y-m-d", mktime(0, 0, 0, $month, $day, $year)); 
                     // 案件名のカレンダー内表示
                    foreach($this->items as $val) {
                             if ($val->delivery_date == $target) 
                             {
-                                $this->html .= "<br>" . $val->item_name; 
+                                $this->html .= "<p style='font-size:1px;'>" . $val->item_name . "</p>"; 
                             }
                        
                     }

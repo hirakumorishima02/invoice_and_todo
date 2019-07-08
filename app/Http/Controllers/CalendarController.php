@@ -19,6 +19,6 @@ class CalendarController extends Controller
         $itemList = Item::where('user_id',Auth::user()->id)->get();
         $cal = new Calendar($itemList);
         $tag = $cal->showCalendarTag($request->month,$request->year);
-        return view('test', ['cal_tag' => $tag]);
+        return view('calendar', ['cal_tag' => $tag]);
     }
 }
