@@ -19,6 +19,10 @@
           <div class="input-field col s12">
             <input id="fax_number" type="text" class="validate" name="fax_number" value="{{$list->fax_number}}">
             <label for="fax_number">FAX</label>
+          </div>          
+          <div class="input-field col s12">
+            <input id="email" type="text" class="validate" name="email" value="{{$list->email}}">
+            <label for="emailr">E-mail</label>
           </div>
           <div class="input-field col s12">
             <input id="postal_code" type="text" class="validate" name="postal_code" value="{{$list->postal_code}}">

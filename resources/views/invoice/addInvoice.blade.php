@@ -30,9 +30,7 @@
             {{Form::label('billing_day','請求日')}}
           </div>
           <div class="input-field col s12">
-            @foreach($user_infoList as $user_info)
-            {{Form::text('invoice_message', $user_info->billing_message,['class' => 'validate', 'id' => 'invoice_message'])}}
-            @endforeach
+            {{Form::text('invoice_message','',['class' => 'validate', 'id' => 'invoice_message'])}}
             {{Form::label('invoice_message','請求書の備考欄')}}
           </div>
           {{Form::submit('請求書の追加', ['class' => 'waves-effect waves-light btn blue accent-1'])}}

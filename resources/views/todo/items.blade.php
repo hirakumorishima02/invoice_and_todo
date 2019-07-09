@@ -52,7 +52,11 @@
                     </script>
                     <?php $index ++; ?>
                     </th>
-                    <th>{{$val->memo}}</th>
+                    <th>
+                        @if(isset($val->memo))
+                        {{$val->memo}}
+                        @endif
+                    </th>
                     <th><a href="/editItem/{{$val->id}}">管理画面</a></th>
                 </tr>
                     @endforeach

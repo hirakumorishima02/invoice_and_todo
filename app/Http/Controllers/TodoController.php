@@ -38,7 +38,6 @@ class TodoController extends Controller
         $client->client_name = $request->client_name;
         $client->personnel = $request->personnel;
         $client->client_tel_number = $request->client_tel_number;
-        $client->client_address = $request->client_address;
         $client->sales_tax_rate = $request->sales_tax_rate;
         $client->withholding_tax_rate = $request->withholding_tax_rate;
         $client->tax_category = $request->tax_category;
@@ -57,7 +56,6 @@ class TodoController extends Controller
         $client->client_name = $request->client_name;
         $client->personnel = $request->personnel;
         $client->client_tel_number = $request->client_tel_number;
-        $client->client_address = $request->client_address;
         $client->sales_tax_rate = $request->sales_tax_rate;
         $client->withholding_tax_rate = $request->withholding_tax_rate;
         $client->tax_category = $request->tax_category;

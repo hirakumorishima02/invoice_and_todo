@@ -17,7 +17,7 @@ class CreateBillsTable extends Migration
             $table->increments('id');
             $table->integer('invoice_id')->unsigned();
             $table->string('billing_item'); //請求項目名称
-            $table->string('unit'); //単位
+            $table->string('unit')->nullable(); //単位
             $table->integer('quantity'); //数量
             $table->decimal('bill_unit_price'); //単価
             $table->timestamps();

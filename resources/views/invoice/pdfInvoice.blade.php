@@ -22,7 +22,7 @@
 
 <table>
     <tr><td></td><td></td><td></td><td><p>{{$val->billing_day}}</p></td></tr>
-    <tr><td></td><td></td><td></td><td><p>請求番号:{{$val->billing_day.'-'.$val->id}}</p></td></tr>
+    <tr><td></td><td></td><td></td><td><p>請求番号:{{$val->invoice_number}}</p></td></tr>
 </table>
 
 <h2 class="invoice-title">請求書</h2>
@@ -170,8 +170,12 @@
 </table>
 
 <!--user_infoList-->
+@foreach($invoiceList as $val)
+@if(isset($val->invoice_message))
+<p>{{$val->invoice_message}}</p>
+@endif
+@endforeach
 @foreach($user_infoList as $val)
-<p>{{$val->billing_message}}</p>
 <p>お振込先:<br>{{$val->bank_account}}</p>
 @endforeach
 <!--user_infoListここまで-->

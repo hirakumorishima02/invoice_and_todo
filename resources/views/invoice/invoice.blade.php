@@ -189,12 +189,17 @@
         <br>
           <div class="row">
             <div class="input-field col s12">
-              <!--user_infoList-->
-              @foreach($user_infoList as $val)
-              {{Form::label('billing_message','備考欄')}}
-              {{Form::textarea('billing_message', $val->billing_message, ['id' => 'textarea1', 'class' => 'materialize-textarea'])}}
+              <!--invoiceList-->
+                @foreach($invoiceList as $val)
+                @if(isset($val->invoice_message))
+                {{Form::text('invoice_message', $val->billing_message,['class' => 'validate', 'id' => 'invoice_message'])}}
+                @else
+                {{Form::text('invoice_message',['class' => 'validate', 'id' => 'invoice_message'])}}
+                @endif
+                @endforeach
             </div>
           </div>
+            @foreach($clientList as $val)
             <p>お振込み先:　{{$val->bank_account}}</p>
             @endforeach
             <!--user_infoListここまで-->

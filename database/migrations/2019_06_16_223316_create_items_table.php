@@ -22,9 +22,9 @@ class CreateItemsTable extends Migration
             $table->string('item_name'); //案件名→billのbilling_itemに保存
             $table->date('delivery_date'); //納期
             // $table->decimal('amount', 8, 2); 小数点以下桁数指定のDECIMALカラム https://readouble.com/laravel/5.5/ja/migrations.html
-            $table->decimal('unit_price'); //単価名→billのbill_unit_priceに保存
+            $table->decimal('unit_price', 8, 2); //単価名→billのbill_unit_priceに保存
             $table->integer('states'); //ステータス
-            $table->text('memo'); //メモ
+            $table->text('memo')->nullable(); //メモ
             $table->timestamps();
             
             $table

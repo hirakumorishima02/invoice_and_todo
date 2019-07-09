@@ -18,11 +18,11 @@ class CreateUserInfosTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('postal_code'); //郵便番号
             $table->text('address'); //住所
-            $table->string('tel_number'); //電話番号
-            $table->string('fax_number'); //FAX
+            $table->string('tel_number')->nullable(); //電話番号
+            $table->string('fax_number')->nullable(); //FAX
+            $table->string('email')->nullable(); //FAX
             $table->string('billing_name'); //請求時名前
             $table->text('bank_account'); //銀行口座
-            $table->text('billing_message'); //請求メッセージ
             $table->timestamps();
             
             $table

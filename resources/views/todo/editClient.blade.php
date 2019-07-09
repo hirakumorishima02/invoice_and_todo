@@ -23,10 +23,6 @@
             {{Form::label('client_tel_number', '連絡先')}}
           </div>
           <div class="input-field col s12">
-            {{Form::text('client_address', $list->client_address,['class' => 'validate', 'id' => 'client_address'])}}
-            {{Form::label('client_address', '住所')}}
-          </div>
-          <div class="input-field col s12">
 	            <select id="sales_tax_rate" class="select" name="sales_tax_rate" value="{{$list->sales_tax_rate}}">
                 @if($list->sales_tax_rate == 1.00)
 	              <option value="1" selected>0%(税抜)</option>

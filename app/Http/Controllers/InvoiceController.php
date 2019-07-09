@@ -53,9 +53,9 @@ class InvoiceController extends Controller
             $user->address = $request->address;
             $user->tel_number = $request->tel_number;
             $user->fax_number = $request->fax_number;
+            $user->email = $request->email;
             $user->billing_name = $request->billing_name;
             $user->bank_account = $request->bank_account;
-            $user->billing_message = $request->billing_message;
             $user->update();
         } else {
             $user = new User_info;
@@ -64,9 +64,9 @@ class InvoiceController extends Controller
             $user->address = $request->address;
             $user->tel_number = $request->tel_number;
             $user->fax_number = $request->fax_number;
+            $user->email = $request->email;
             $user->billing_name = $request->billing_name;
             $user->bank_account = $request->bank_account;
-            $user->billing_message = $request->billing_message;
             $user->save();   
         }
         
@@ -90,7 +90,6 @@ class InvoiceController extends Controller
         $invoice->client_id = $request->client_id;
         // invoiceテーブルのbilling_name（請求宛先名）にclientテーブルのclient_name（クライアント名）を登録したい。リレーション？
         $invoice->billing_name = $request->billing_name;
-        $invoice->billing_address = $request->billing_address;
         $invoice->invoice_title = $request->invoice_title;
         $invoice->invoice_message = $request->invoice_message;
         $invoice->subtotal = $request->subtotal;
@@ -118,7 +117,7 @@ class InvoiceController extends Controller
         $bill->billing_item = $item->item_name;
         $bill->quantity = 1;
         $bill->bill_unit_price = $item->unit_price;
-        $bill->unit = '本';
+        $bill->unit = $item->unit;
         $bill->save();
         
         //請求ヘッダの金額、数量の再計算 111行目を参考にする(アップデート)
@@ -151,6 +150,8 @@ class InvoiceController extends Controller
         $invoice->invoice_title = $request->invoice_title;
         $invoice->billing_day = $request->billing_day;
         $invoice->payment_day = $request->payment_day;
+        $invoice->invoice_message = $request->invoice_message;
+        $invoice->invoice_number = $request->invoice_number;
         $invoice->save();
          
         $user_info = User_info::where('id', '=', $request->userInfo_id)->first();
@@ -159,7 +160,6 @@ class InvoiceController extends Controller
         $user_info->address = $request->address;
         $user_info->tel_number = $request->tel_number;
         $user_info->fax_number = $request->fax_number;
-        $user_info->billing_message = $request->billing_message;
         $user_info->save();
         
         $client = Client::where('id', '=', $request->clientId)->first();

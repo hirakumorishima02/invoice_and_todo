@@ -26,7 +26,6 @@ class InvoiceRequest extends FormRequest
         return [
             'billing_name' => 'required',
             'invoice_title' => 'required',
-            'billing_address' => 'required',
             'payment_day' => 'required',
             'billing_day' => 'required',
         ];
@@ -36,7 +35,6 @@ class InvoiceRequest extends FormRequest
         return [
             'billing_name.required' => '請求宛先名称は必ず登録してください。',
             'invoice_title.required'  => '請求書のタイトルは必ず登録してください。',
-            'billing_address.required'  => '請求先住所は必ず登録してください。',
             'payment_day.required'  => '支払期限は必ず登録してください。',
             'billing_day.required'  => '請求日は必ず登録してください。',
         ];
