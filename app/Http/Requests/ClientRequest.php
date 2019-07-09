@@ -26,8 +26,6 @@ class ClientRequest extends FormRequest
         return [
             'client_name' => 'required',
             'personnel' => 'required',
-            'client_tel_number' => 'required',
-            'client_address' => 'required',
             'sales_tax_rate' => 'required',
             'withholding_tax_rate' => 'required',
             'tax_category' => 'required',
@@ -39,8 +37,6 @@ class ClientRequest extends FormRequest
         return [
             'client_name.required' => 'クライアント名は必ず登録してください。',
             'personnel.required'  => '担当者名のタイトルは必ず登録してください。',
-            'client_tel_number.required'  => '連絡先住所は必ず登録してください。',
-            'client_address.required'  => '住所は必ず登録してください。',
             'sales_tax_rate.required'  => '消費税率は必ず登録してください。',
             'withholding_tax_rate.required'  => '源泉徴収税率は必ず登録してください。',
             'tax_category.required'  => '税区分は必ず登録してください。',

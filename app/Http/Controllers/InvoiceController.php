@@ -12,6 +12,7 @@ use App\Item;
 use App\Http\Requests\UserInfoRequest;
 use App\Http\Requests\InvoiceRequest;
 
+
 use TCPDF;
 use TCPDF_FONTS;
 
@@ -160,6 +161,7 @@ class InvoiceController extends Controller
         $user_info->address = $request->address;
         $user_info->tel_number = $request->tel_number;
         $user_info->fax_number = $request->fax_number;
+        $user_info->email = $request->email;
         $user_info->save();
         
         $client = Client::where('id', '=', $request->clientId)->first();

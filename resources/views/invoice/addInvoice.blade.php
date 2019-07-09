@@ -18,10 +18,6 @@
             {{Form::label('billing_name','請求宛先名称')}}
           </div>
           <div class="input-field col s12">
-            {{Form::text('billing_address', $clientList->client_address,['class' => 'validate', 'id' => 'billing_address'])}}
-            {{Form::label('billing_address','請求先住所')}}
-          </div>
-          <div class="input-field col s12">
             {{Form::text('payment_day', '',['class' => 'datepicker', 'id' => 'payment_day'])}}
             {{Form::label('payment_day','支払い期限')}}
           </div>
@@ -31,7 +27,7 @@
           </div>
           <div class="input-field col s12">
             {{Form::text('invoice_message','',['class' => 'validate', 'id' => 'invoice_message'])}}
-            {{Form::label('invoice_message','請求書の備考欄')}}
+            {{Form::label('invoice_message','請求書の備考欄(任意)')}}
           </div>
           {{Form::submit('請求書の追加', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
           {{Form::hidden('subtotal', 0)}}

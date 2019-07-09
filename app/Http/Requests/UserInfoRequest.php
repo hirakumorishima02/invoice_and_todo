@@ -28,7 +28,7 @@ class UserInfoRequest extends FormRequest
             'address' => 'required',
             'billing_name' => 'required',
             'bank_account' => 'required',
-            'billing_message' => 'required',
+            'email' => 'email|max:50',
         ];
     }
     public function messages() 
@@ -38,7 +38,8 @@ class UserInfoRequest extends FormRequest
             'address.required'  => '住所は必ず登録してください。',
             'billing_name.required'  => '請求者名は必ず登録してください。',
             'bank_account.required'  => '銀行口座は必ず登録してください。',
-            'billing_message.required'  => '請求書の備考欄は必ず登録してください。',
+            'email.email' => 'メールアドレスはアドレス形式で入力してください。',
+            'email.max' => 'メールアドレスは最大50字です。',
         ];
     }
 }

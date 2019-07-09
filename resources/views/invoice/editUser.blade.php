@@ -14,15 +14,15 @@
           </div>
           <div class="input-field col s12">
             <input id="tel_number" type="text" class="validate" name="tel_number" value="{{$list->tel_number}}">
-            <label for="tel_number">電話番号</label>
+            <label for="tel_number">電話番号(任意)</label>
           </div>
           <div class="input-field col s12">
             <input id="fax_number" type="text" class="validate" name="fax_number" value="{{$list->fax_number}}">
-            <label for="fax_number">FAX</label>
+            <label for="fax_number">FAX(任意)</label>
           </div>          
           <div class="input-field col s12">
             <input id="email" type="text" class="validate" name="email" value="{{$list->email}}">
-            <label for="emailr">E-mail</label>
+            <label for="emailr">E-mail(任意)</label>
           </div>
           <div class="input-field col s12">
             <input id="postal_code" type="text" class="validate" name="postal_code" value="{{$list->postal_code}}">
@@ -38,7 +38,7 @@
           </div>
           <div class="input-field col s12">
             <input id="billing_message" type="text" class="validate" name="billing_message" value="{{$list->billing_message}}">
-            <label for="billing_message">請求書の備考欄</label>
+            <label for="billing_message">請求書の備考欄(任意)</label>
           </div>
            <input type="submit" value="ユーザー情報の登録・更新" class="waves-effect waves-light btn blue accent-1">
            <input type="hidden" name="id" value="{{$list->id}}">

@@ -20,14 +20,14 @@
           <li><a href="{{url('/user')}}">サイトトップ<i class="material-icons left">home</i></a></li>
           <li><a href="/calendar">案件カレンダー<i class="material-icons left">date_range</i></a></li>
               <li>
-                <a class="collapsible-header" data-target="dropdown1">請求書管理<i class="material-icons">arrow_drop_down</i></a>
+                <a class="collapsible-header" data-target="dropdown1">請求書<i class="material-icons">arrow_drop_down</i></a>
                     <ul id='dropdown1' class='dropdown-content'>
                       <li><a href="{{ url('/editUser')}}">ユーザー情報管理<i class="material-icons left">person</i></a></li>
-                      <li><a href="{{ url('/checkClient')}}">請求書作成<i class="material-icons left">add</i></a></li>
+                      <li><a href="{{ url('/checkClient')}}">請求書ヘッダ作成<i class="material-icons left">add</i></a></li>
                     </ul>
               </li>
               <li>
-                <a class="collapsible-header" data-target="dropdown2">タスク管理<i class="material-icons">arrow_drop_down</i></a>
+                <a class="collapsible-header" data-target="dropdown2">タスク<i class="material-icons">arrow_drop_down</i></a>
                     <ul id="dropdown2" class='dropdown-content'>
                       <li><a href="{{url('/addClient')}}">クライアント追加<i class="material-icons left">add</i></a></li>
                       <li><a href="{{url('addItem')}}">案件追加<i class="material-icons left">add</i></a></li>

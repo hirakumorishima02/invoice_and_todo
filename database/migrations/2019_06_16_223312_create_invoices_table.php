@@ -23,10 +23,10 @@ class CreateInvoicesTable extends Migration
             $table->decimal('sum_price'); //合計
             $table->string('billing_name'); //請求宛先名称
             $table->string('invoice_title'); //請求書のタイトル
-            $table->text('invoice_message')->nullabule(); //メッセージ
+            $table->text('invoice_message')->nullable(); //メッセージ
             $table->date('payment_day'); //お支払い期限
             $table->date('billing_day'); //請求日
-            $table->string('invoice_number')->nullabule(); //請求日
+            $table->string('invoice_number')->nullable(); //請求日
             $table->timestamps();
             
             $table

@@ -29,6 +29,7 @@
               @endforeach
             </select>
             <label for="client_id">クライアント</label>
+            <p style="font-size:10px;"><a href="{{url('/addClient')}}">クライアント追加へ<i class="tiny material-icons left">add</i></a></p>
           </div>
           <div class="input-field col s12">
             {{Form::textarea('memo', null, ['class' => 'validate', 'id' => 'memo'])}}

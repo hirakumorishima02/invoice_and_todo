@@ -60,7 +60,8 @@
             <p>{{$val->tel_number}}</p>
             <!--FAX-->
             <p>{{$val->tel_number}}</p>
-            
+            <!--EMAIL-->
+            <p>{{$val->email}}</p>
             @endforeach
             
             <br>

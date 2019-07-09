@@ -18,10 +18,6 @@
             {{Form::label('personnel', '担当者名')}}
           </div>
           <div class="input-field col s12">
-            {{Form::text('client_tel_number', '' ,['class' => 'validate', 'id' => 'client_tel_number'])}}
-            {{Form::label('client_tel_number', '連絡先')}}
-          </div>
-          <div class="input-field col s12">
 	            <select id="sales_tax_rate" class="select" name="sales_tax_rate">
 	              <option value="" disabled selected>消費税率を選んでください。</option>
 	              <option value="1">0%(税抜)</option>

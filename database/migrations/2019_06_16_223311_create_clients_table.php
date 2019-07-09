@@ -18,7 +18,6 @@ class CreateClientsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('client_name'); //クライアント名
             $table->string('personnel'); //担当者
-            $table->string('client_tel_number'); //TEL
             $table->decimal('sales_tax_rate'); //消費税率
             $table->decimal('withholding_tax_rate'); //源泉徴収税率
             $table->integer('tax_category'); //税区分

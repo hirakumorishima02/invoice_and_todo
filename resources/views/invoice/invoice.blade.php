@@ -13,7 +13,7 @@
         <div class="row">
             <!--請求先-->
             <div class="col s5">
-                <!--invoiceList-->
+            <!--invoiceList-->
 
             <!--請求宛先名称-->
             {{Form::label('billing_name_clients','請求先')}}
@@ -31,7 +31,7 @@
             
             <!--請求番号 テーブルカラム無し-->
             {{Form::label('invoice_number','請求番号')}}
-            {{Form::text('invoice_number', $val->billing_day.$val->id,['class' => 'validate', 'id' => 'invoice_number'])}}
+            {{Form::text('invoice_number', $val->invoice_number,['class' => 'validate', 'id' => 'invoice_number'])}}
 
             <!--請求書のタイトル-->
             {{Form::label('invoice_title','件名')}}
@@ -63,9 +63,12 @@
             {{Form::label('tel_number','TEL')}}
             {{Form::text('tel_number', $val->tel_number,['class' => 'validate', 'id' => 'tel_number'])}}
             <!--FAX-->
-            {{Form::label('fax_number','TEL')}}
+            {{Form::label('fax_number','FAX')}}
             {{Form::text('fax_number', $val->tel_number,['class' => 'validate', 'id' => 'fax_number'])}}
-            
+            <!--EMAIL-->
+            {{Form::label('email','EMAIL')}}
+            {{Form::text('email', $val->email,['class' => 'validate', 'id' => 'email'])}}
+
             {{Form::hidden('userInfo_id',$val->id)}}
             @endforeach
             <!--user_infoListここまで-->
@@ -77,7 +80,7 @@
             <tr>
                 <th>品番・品名</th>
                 <th>数量</th>
-                <th>単位</th>
+                <th>単位(任意)</th>
                 <th>単価</th>
                 <th>金額</th>
             </tr>
@@ -194,18 +197,33 @@
                 @if(isset($val->invoice_message))
                 {{Form::text('invoice_message', $val->billing_message,['class' => 'validate', 'id' => 'invoice_message'])}}
                 @else
-                {{Form::text('invoice_message',['class' => 'validate', 'id' => 'invoice_message'])}}
+                {{Form::text('invoice_message','',['class' => 'validate', 'id' => 'invoice_message'])}}
                 @endif
                 @endforeach
             </div>
           </div>
-            @foreach($clientList as $val)
+            @foreach($user_infoList as $val)
             <p>お振込み先:　{{$val->bank_account}}</p>
             @endforeach
             <!--user_infoListここまで-->
-      {{Form::submit('請求書の作成', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
+            @if(isset($user_infoList[0]))
+            @foreach($user_infoList as $val)
+              {{Form::submit('請求書の作成', ['class' => 'waves-effect waves-light btn blue accent-1'])}}
+            @endforeach
+            @else
+                <a onclick="M.toast({html: toastHTML})">{{Form::submit('請求書の作成', ['class' => 'waves-effect waves-light btn blue accent-1 disabled'])}}</a>
+            @endif
+            
   {{Form::close()}}
-
+    <div class="row">
+    <div class="col s12 offset-l3 l8">
+      @if ($errors->any())
+          <div>
+             <p>必要項目が欠けています。</p>
+          </div>
+      @endif
+    </div>
+    </div>
   <!--deleteFromBill用form-->
   @foreach($billList as $val)
             <form method="post" action="{{ url('/deleteFromBill', $val->id ) }}" id="form_{{$val->id}}">
@@ -219,6 +237,7 @@
 @push('scripts')
  <!--deleteFromBill用JS--> 
     <script>
+        var toastHTML = '<span>請求書を作成する前にユーザー登録を行なってください。</span><a href="/editUser"><button class="btn-flat toast-action">登録画面へ</button></a>';
         var cmds = document.getElementsByClassName('del');
         var i;
         
