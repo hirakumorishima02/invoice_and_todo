@@ -8,16 +8,8 @@ use App\Client;
 
 class UserController extends Controller
 {
-    public function user($activeNo){
-        if($activeNo == 1)
-        {
-            $active1 = "is-active-item";
-            $active2 = "";
-        }else{
-            $active1 = "";
-            $active2 = "is-active-item";
-        }
+    public function user(){
         $list = Client::where('user_id','=', Auth::user()->id)->get();
-        return view('user.user', compact('list','active1','active2'));
+        return view('user.user', compact('list'));
     }
 }
