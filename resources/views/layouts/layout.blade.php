@@ -17,9 +17,8 @@
     <!--サイドメニュー-->
       <div class="col s0 l2">
         <ul id="slide-out" class="sidenav sidenav-fixed">
-          <li><a href="{{url('/user')}}">TOP<i class="material-icons left">home</i></a></li>
+          <li><a href="{{url('/user')}}">サイトトップ<i class="material-icons left">home</i></a></li>
           <li><a href="/calendar">案件カレンダー<i class="material-icons left">date_range</i></a></li>
-            <ul class="collapsible collapsible-accordion">
               <li>
                 <a class="collapsible-header" data-target="dropdown1">請求書管理<i class="material-icons">arrow_drop_down</i></a>
                     <ul id='dropdown1' class='dropdown-content'>
@@ -27,8 +26,6 @@
                       <li><a href="{{ url('/checkClient')}}">請求書作成<i class="material-icons left">add</i></a></li>
                     </ul>
               </li>
-            </ul>
-            <ul class="collapsible collapsible-accordion">
               <li>
                 <a class="collapsible-header" data-target="dropdown2">タスク管理<i class="material-icons">arrow_drop_down</i></a>
                     <ul id="dropdown2" class='dropdown-content'>
@@ -36,7 +33,7 @@
                       <li><a href="{{url('addItem')}}">案件追加<i class="material-icons left">add</i></a></li>
                     </ul>
               </li>
-            </ul>
+            <li><a href="{{ url('/logout') }}">ログアウト<i class="material-icons left">exit_to_app</i></a></li>
         </ul>
       </div>
       <!--サイドメニューここまで-->

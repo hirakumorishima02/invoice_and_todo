@@ -30,8 +30,8 @@
             {{Form::text('billing_day', $val->billing_day ,['class' => 'datepicker', 'id' => 'billing_day'])}}
             
             <!--請求番号 テーブルカラム無し-->
-            {{Form::label('billing_number','請求番号')}}
-            {{Form::text('billing_number', $val->billing_day.$val->id,['class' => 'validate', 'id' => 'billing_number'])}}
+            {{Form::label('invoice_number','請求番号')}}
+            {{Form::text('invoice_number', $val->billing_day.$val->id,['class' => 'validate', 'id' => 'invoice_number'])}}
 
             <!--請求書のタイトル-->
             {{Form::label('invoice_title','件名')}}

@@ -45,7 +45,7 @@ class TodoController extends Controller
         $client->fraction = $request->fraction;
         $client->save();
         
-        return redirect('/user/1');
+        return redirect('/user');
     }
     public function editClient($id){
         $list = Client::find($id);
@@ -64,14 +64,14 @@ class TodoController extends Controller
         $client->fraction = $request->fraction;
         $client->save();
         
-        return redirect('/user/1');
+        return redirect('/user');
     }
     public function deleteClient(Request $request)
     {
         $client = Client::where('id', '=', $request->id)->first();
         $client->delete();
         
-        return redirect('/user/1');
+        return redirect('/user');
     }
     
     // 案件情報の追加・更新・削除

@@ -58,6 +58,7 @@
                     @endforeach
             </tbody>
         </table>
+        <p style="font-size:10px;"><a href="{{url('/addItem')}}">案件追加へ<i class="tiny material-icons left">add</i></a></p>
     </div>
     </div>
     

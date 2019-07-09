@@ -19,6 +19,7 @@
         <label for="client_id">クライアント</label>
       </div>
     </form>
+    <p style="font-size:10px;"><a href="{{url('/addClient')}}">クライアント追加へ<i class="tiny material-icons left">add</i></a></p>
       </div>
     </div>
 

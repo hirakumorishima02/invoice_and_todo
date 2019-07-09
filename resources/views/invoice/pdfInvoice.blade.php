@@ -33,6 +33,11 @@
             <!--請求先の情報-->
             <!--請求宛先名称-->
             <h3><u>{{$val->billing_name}}</u></h3>
+            @endforeach
+            @foreach($clientList as $val)
+            <h4>{{$val->personnel}}</h4>
+            @endforeach
+            @foreach($invoiceList as $val)
             <!--請求書のタイトル-->
             <p>件名:{{$val->invoice_title}}</p>
             <p>下記のとおりご請求申し上げます。</p>
@@ -76,8 +81,12 @@
     @foreach($billList as $val)
 <tr>
     <td class="td-height">{{$val->billing_item}}</td>
+    @if(isset($val->unit))
+    <td class="td-height">{{$val->quantity}}{{$val->unit}}</td>
+    @else
     <td class="td-height">{{$val->quantity}}</td>
-    <td class="td-height">{{$val->bill_unit_price}}円</td>
+    @endif
+    <td class="td-height">{{ceil($val->bill_unit_price)}}円</td>
     <td class="td-height">{{$val->quantity * $val->bill_unit_price}}</td>
 </tr>
     <?php $i = $val->quantity * $val->bill_unit_price ?>

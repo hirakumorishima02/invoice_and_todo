@@ -53,6 +53,9 @@ Route::delete('/deleteFromBill/{id}','InvoiceController@deleteFromBill');
 // 案件納期カレンダー用
 Route::get('/calendar','CalendarController@test');
 
+// ログアウト
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 // 動作確認用
 Route::get('/test',function(){
     return view('test');

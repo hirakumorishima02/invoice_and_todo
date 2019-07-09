@@ -101,7 +101,7 @@ class InvoiceController extends Controller
         $invoice->billing_day = $request->billing_day;
         $invoice->save();
         
-        return redirect('/user/2');
+        return redirect('/user');
     }
     
     // 請求書にItemのデータを挿入する
@@ -161,6 +161,10 @@ class InvoiceController extends Controller
         $user_info->fax_number = $request->fax_number;
         $user_info->billing_message = $request->billing_message;
         $user_info->save();
+        
+        $client = Client::where('id', '=', $request->clientId)->first();
+        $client->personnel = $request->personnel_name;
+        $client->save();
         
        $i = 0;
        foreach($request->bill_id as $id){
