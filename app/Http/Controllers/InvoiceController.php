@@ -35,8 +35,8 @@ class InvoiceController extends Controller
         $user_infoList = User_info::where('user_id','=',Auth::user()->id)->get();
         $billList = Bill::where('invoice_id','=', $invoiceId)->get();
         // tax_rateとwithholding_tax_rateを引き出すために対象Clientを引き出したい
-        $clientList = Client::where('id','=', $clientId)->get();
-        return view('invoice.invoice', compact('invoiceList','user_infoList','billList', 'clientList' , 'clientId' ,'invoiceId'));
+        $client = Client::where('id','=', $clientId)->first();
+        return view('invoice.invoice', compact('invoiceList','user_infoList','billList', 'client' , 'clientId' ,'invoiceId'));
     }
     public function editUser(){
         $list = User_info::where('user_id','=',Auth::user()->id)->first(); //ログインしているユーザーのデータを取るときに使える。

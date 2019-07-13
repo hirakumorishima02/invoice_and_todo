@@ -57,11 +57,17 @@
             <!--住所-->
             <p>{{$val->address}}</p>
             <!--TEL-->
+            @if(isset($val->tel_number))
             <p>{{$val->tel_number}}</p>
+            @endif
             <!--FAX-->
-            <p>{{$val->tel_number}}</p>
+            @if(isset($val->fax_number))
+            <p>{{$val->fax_number}}</p>
+            @endif
             <!--EMAIL-->
+            @if(isset($val->email))
             <p>{{$val->email}}</p>
+            @endif
             @endforeach
             
             <br>
@@ -104,34 +110,38 @@
 <tr>
     <td class="td-height"></td>
     <td class="td-height"></td>
-    <td class="td-height">消費税</td>
     @foreach($clientList as $val)
-    @if($val->sales_tax_rate == 1.00)
-        @if($val->fraction == 1)
-        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
+    @if($val->tax_category == 1)
+        <td class="td-height">消費税</td>
+        @if($val->sales_tax_rate == 1.00)
+            @if($val->fraction == 1)
+            <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
+            @else
+            <td class="td-height">{{floor($sales_subtotal = $subtotal * 0)}}円</td>
+            @endif
+        @elseif($val->sales_tax_rate == 2.00)
+            @if($val->fraction == 1)
+            <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.08)}}円</td>
+            @else
+            <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
+            @endif
+        @elseif($val->sales_tax_rate == 3.00)
+            @if($val->fraction == 1)
+            <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.1)}}円</td>
+            @else
+            <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
+            @endif
         @else
-        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0)}}円</td>
+            @if($val->fraction == 1)
+            <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.05)}}円</td>
+            @else
+            <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
+            @endif
         @endif
-    @elseif($val->sales_tax_rate == 2.00)
-        @if($val->fraction == 1)
-        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.08)}}円</td>
-        @else
-        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
-        @endif
-    @elseif($val->sales_tax_rate == 3.00)
-        @if($val->fraction == 1)
-        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.1)}}円</td>
-        @else
-        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
-        @endif
-    @else
-        @if($val->fraction == 1)
-        <td class="td-height">{{ceil($sales_subtotal = $subtotal * 0.05)}}円</td>
-        @else
-        <td class="td-height">{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
-        @endif
-    @endif
 </tr>
+        @else
+        <?php  $sales_subtotal = 0; ?>
+        @endif
 <tr>
     <td></td>
     <td></td>
@@ -161,9 +171,9 @@
     <td class="td-height"></td>
     <td class="td-height">合計</td>
         @if($val->fraction == 1)
-        <td class="td-height">{{$sum_price = floor($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+        <td class="td-height">{{$sum_price = floor($subtotal + $sales_subtotal - $withholding_subtotal)}}円</td>
         @else
-        <td class="td-height">{{$sum_price = ceil($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+        <td class="td-height">{{$sum_price = ceil($subtotal + $sales_subtotal - $withholding_subtotal)}}円</td>
         @endif
     @endforeach
     <!--invoiceListここまで-->

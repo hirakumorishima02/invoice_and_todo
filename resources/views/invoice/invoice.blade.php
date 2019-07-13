@@ -19,11 +19,11 @@
             {{Form::label('billing_name_clients','請求先')}}
             {{Form::text('billing_name_clients', $val->billing_name,['class' => 'validate', 'id' => 'billing_name_clients'])}}
     @endforeach
-    @foreach($clientList as $val)
+
             <!--請求宛先名称-->
             {{Form::label('personnel_name','担当者')}}
-            {{Form::text('personnel_name', $val->personnel,['class' => 'validate', 'id' => 'personnel_name'])}}
-    @endforeach
+            {{Form::text('personnel_name', $client->personnel,['class' => 'validate', 'id' => 'personnel_name'])}}
+
     @foreach($invoiceList as $val)
             <!--自動割り当て-->
             {{Form::label('billing_day','請求日')}}
@@ -31,7 +31,7 @@
             
             <!--請求番号 テーブルカラム無し-->
             {{Form::label('invoice_number','請求番号')}}
-            {{Form::text('invoice_number', $val->invoice_number,['class' => 'validate', 'id' => 'invoice_number'])}}
+            {{Form::text('invoice_number', str_replace('-', '', $val->billing_day) . $val->id,['class' => 'validate', 'id' => 'invoice_number'])}}
 
             <!--請求書のタイトル-->
             {{Form::label('invoice_title','件名')}}
@@ -64,7 +64,7 @@
             {{Form::text('tel_number', $val->tel_number,['class' => 'validate', 'id' => 'tel_number'])}}
             <!--FAX-->
             {{Form::label('fax_number','FAX')}}
-            {{Form::text('fax_number', $val->tel_number,['class' => 'validate', 'id' => 'fax_number'])}}
+            {{Form::text('fax_number', $val->fax_number,['class' => 'validate', 'id' => 'fax_number'])}}
             <!--EMAIL-->
             {{Form::label('email','EMAIL')}}
             {{Form::text('email', $val->email,['class' => 'validate', 'id' => 'email'])}}
@@ -95,7 +95,7 @@
                 <!--単位-->
                 <td>{{Form::text('unit[]', $val->unit,['class' => 'validate', 'id' => 'unit'])}}</td>
                 <!--単価-->
-                <td><input type="text" name="bill_unit_price[]" value="{{ceil($val->bill_unit_price)}}" class="validate bill_unit_price" id="bill_unit_price"></td>
+                <td><input type="text" name="bill_unit_price[]" value="{{ceil($val->bill_unit_price)}}" class="validate bill_unit_price"></td>
                 <!--金額-->
                 <td><span class="ans">{{$val->quantity * $val->bill_unit_price}}</span></td>
                 <td><a href="#" data-id="{{$val->id}}" class="waves-effect waves-light btn del">削除</a>
@@ -120,58 +120,25 @@
                 <td></td>
                 <td></td>
                 <td>消費税</td>
-                @foreach($clientList as $val)
-                @if($val->sales_tax_rate == 1.00)
-                    @if($val->fraction == 1)
-                    <td>{{ceil($sales_subtotal = $subtotal * 0)}}円</td>
+                    @if($client->fraction == 1)
+                    <td id="sales_subtotal">{{ceil($sales_subtotal = $subtotal * $client->tax)}}円</td>
                     @else
-                    <td>{{floor($sales_subtotal = $subtotal * 0)}}円</td>
+                    <td id="sales_subtotal">{{floor($sales_subtotal = $subtotal * $client->tax)}}円</td>
                     @endif
-                @elseif($val->sales_tax_rate == 2.00)
-                    @if($val->fraction == 1)
-                    <td>{{ceil($sales_subtotal = $subtotal * 0.08)}}円</td>
-                    @else
-                    <td>{{floor($sales_subtotal = $subtotal * 0.08)}}円</td>
-                    @endif
-                @elseif($val->sales_tax_rate == 3.00)
-                    @if($val->fraction == 1)
-                    <td>{{ceil($sales_subtotal = $subtotal * 0.1)}}円</td>
-                    @else
-                    <td>{{floor($sales_subtotal = $subtotal * 0.1)}}円</td>
-                    @endif
-                @else
-                    @if($val->fraction == 1)
-                    <td>{{ceil($sales_subtotal = $subtotal * 0.05)}}円</td>
-                    @else
-                    <td>{{floor($sales_subtotal = $subtotal * 0.05)}}円</td>
-                    @endif
-                @endif
-                {{Form::hidden('sales_subtotal',$sales_subtotal)}}
+                {{Form::hidden('sales_subtotal',$sales_subtotal, ['id' => 'hidden_sales_subtotal'])}}
+                {{Form::hidden('sales_tax_rate',$client->tax, ['id' => 'hidden_sales_tax_rate'])}}
+                {{Form::hidden('fraction',$client->fraction, ['id' => 'hidden_fraction'])}}
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>源泉徴収税</td>
-                @if($val->withholding_tax_rate == 1.00)
-                    @if($val->fraction == 1)
-                        <td>{{ceil($withholding_subtotal = $subtotal * 0)}}円</td>
+                    @if($client->fraction == 1)
+                        <td>{{ceil($withholding_subtotal = $subtotal * $client->tax)}}円</td>
                     @else
-                        <td>{{floor($withholding_subtotal = $subtotal * 0)}}円</td>
+                        <td>{{floor($withholding_subtotal = $subtotal * $client->tax)}}円</td>
                     @endif
-                @elseif($val->withholding_tax_rate == 2.00)
-                    @if($val->fraction == 1)
-                    <td>{{ceil($withholding_subtotal = $subtotal * 0.1021)}}円</td>
-                    @else
-                    <td>{{floor($withholding_subtotal = $subtotal * 0.1021)}}円</td>
-                    @endif
-                @elseif($val->withholding_tax_rate == 3.00)
-                    @if($val->fraction == 1)
-                    <td>{{ceil($withholding_subtotal = $subtotal * 0.2042)}}円</td>
-                    @else
-                    <td>{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
-                    @endif
-                @endif
                 {{Form::hidden('withholding_subtotal',$withholding_subtotal)}}
             </tr>
             <tr>
@@ -179,13 +146,12 @@
                 <td></td>
                 <td></td>
                 <td>合計</td>
-                    @if($val->fraction == 1)
-                    <td>{{$sum_price = floor($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+                    @if($client->fraction == 1)
+                    <td>{{$sum_price = floor($subtotal  + $sales_subtotal - $withholding_subtotal)}}円</td>
                     @else
-                    <td>{{$sum_price = ceil($subtotal - $sales_subtotal - $withholding_subtotal)}}円</td>
+                    <td>{{$sum_price = ceil($subtotal + $sales_subtotal - $withholding_subtotal)}}円</td>
                     @endif
                 {{Form::hidden('sum_price',$sum_price)}}
-                @endforeach
                 <!--invoiceListここまで-->
             </tr>
         </table>
@@ -258,6 +224,23 @@
             var num02 = isNaN(bill_unitVal.val()) ?  0 : bill_unitVal.val();
             var sum = num01 * num02;
             $_t.find('.ans').html(sum);
+            caliculateTax();
         });
+        
+        function caliculateTax(){
+            var unit_price = tax = 0;
+            $(".quantity,.bill_unit_price").each(function (){
+                unit_price += parseInt($(this).val());
+            });
+            var tax_rate = parseFloat($('#hidden_sales_tax_rate'));
+            var fraction = parseFloat($('#hidden_fraction'));
+            if (fraction == 1.00){
+                tax = Math.ceil(unit_price * tax_rate);
+            } else if(fraction == 2.00){
+                tax = Math.floor(unit_price * tax_rate);
+            }
+            $('#sales_subtotal').html(tax + '円');
+            $('#hidden_sales_subtotal').val(tax);
+        }
     </script>
 @endpush
