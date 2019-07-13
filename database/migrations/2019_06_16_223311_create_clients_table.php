@@ -20,7 +20,6 @@ class CreateClientsTable extends Migration
             $table->string('personnel'); //担当者
             $table->decimal('sales_tax_rate'); //消費税率
             $table->decimal('withholding_tax_rate'); //源泉徴収税率
-            $table->integer('tax_category'); //税区分
             $table->integer('fraction'); //端数処理
             $table->timestamps();
             

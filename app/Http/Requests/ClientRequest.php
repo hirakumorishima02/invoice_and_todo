@@ -28,7 +28,6 @@ class ClientRequest extends FormRequest
             'personnel' => 'required',
             'sales_tax_rate' => 'required',
             'withholding_tax_rate' => 'required',
-            'tax_category' => 'required',
             'fraction' => 'required',
         ];
     }
@@ -39,7 +38,6 @@ class ClientRequest extends FormRequest
             'personnel.required'  => '担当者名のタイトルは必ず登録してください。',
             'sales_tax_rate.required'  => '消費税率は必ず登録してください。',
             'withholding_tax_rate.required'  => '源泉徴収税率は必ず登録してください。',
-            'tax_category.required'  => '税区分は必ず登録してください。',
             'fraction.required'  => '税区分は必ず登録してください。',
         ];
     }

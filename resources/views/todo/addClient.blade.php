@@ -37,15 +37,6 @@
 	            <label for="withholding_tax_rate">源泉徴収税率</label>
 	          </div>
 	          <div class="input-field col s12">
-	            <select id="tax_category" class="select" name="tax_category">
-	              <option value="" disabled selected>税区分を選んでください。</option>
-	              <option value="1">税別</option>
-	              <option value="2">税込</option>
-	              <option value="3">免税</option>
-	            </select>
-	            <label for="tax_category">消費税の表示設定</label>
-	          </div>
-	          <div class="input-field col s12">
 	            <select id="fraction" class="select" name="fraction">
 	              <option value="" disabled selected>端数処理を選んでください。</option>
 	              <option value="1">切り上げ</option>

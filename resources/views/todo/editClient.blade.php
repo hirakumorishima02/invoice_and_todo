@@ -63,24 +63,6 @@
 	            <label for="withholding_tax_rate">源泉徴収税率</label>
 	          </div>
 	          <div class="input-field col s12">
-	            <select id="tax_category" class="select" name="tax_category">
-	              @if($list->tax_category == 1)
-	              <option value="1" selected>税別</option>
-	              <option value="2">税込</option>
-	              <option value="3">免税</option>
-	              @elseif($list->tax_category == 2)
-	              <option value="1">税別</option>
-	              <option value="2" selected>税込</option>
-	              <option value="3">免税</option>
-	              @else
-	              <option value="1">税別</option>
-	              <option value="2">税込</option>
-	              <option value="3" selected>免税</option>
-	              @endif
-	            </select>
-	            <label for="tax_category">消費税の表示設定</label>
-	          </div>
-	          <div class="input-field col s12">
 	            <select id="fraction" class="select" name="fraction">
 	              @if($list->fraction == 1)
 	              <option value="1" selected>切り上げ</option>
