@@ -25,12 +25,12 @@
 	              <option value="2">8%(税込)</option>
 	              <option value="3">10%(税込)</option>
 	              <option value="4">5%(税込)</option>
-	              @ifelse($list->sales_tax_rate == 2.00)
+	              @elseif($list->sales_tax_rate == 2.00)
 	              <option value="1">0%(税抜)</option>
 	              <option value="2" selected>8%(税込)</option>
 	              <option value="3">10%(税込)</option>
 	              <option value="4">5%(税込)</option>
-	              @ifelse($list->sales_tax_rate == 3.00)
+	              @elseif($list->sales_tax_rate == 3.00)
 	              <option value="1">0%(税抜)</option>
 	              <option value="2">8%(税込)</option>
 	              <option value="3" selected>10%(税込)</option>
@@ -50,14 +50,22 @@
 	              <option value="1" selected>0%(無課税)</option>
 	              <option value="2">10.21%</option>
 	              <option value="3">20.42%</option>
+	              <option value="4">5%</option>
 	              @elseif($list->withholding_tax_rate == 2.00)
 	              <option value="1">0%(無課税)</option>
 	              <option value="2" selected>10.21%</option>
 	              <option value="3">20.42%</option>
-	              @else
+	              <option value="4">5%</option>
+	              @elseif($list->withholding_tax_rate == 3.00)
 	              <option value="1">0%(無課税)</option>
 	              <option value="2">10.21%</option>
 	              <option value="3" selected>20.42%</option>
+	              <option value="4">5%</option>
+	              @elseif($list->withholding_tax_rate == 4.00)
+	              <option value="1">0%(無課税)</option>
+	              <option value="2">10.21%</option>
+	              <option value="3">20.42%</option>
+	              <option value="4" selected>5%</option>
 	              @endif
 	            </select>
 	            <label for="withholding_tax_rate">源泉徴収税率</label>

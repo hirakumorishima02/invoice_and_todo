@@ -31,7 +31,7 @@
             
             <!--請求番号 テーブルカラム無し-->
             {{Form::label('invoice_number','請求番号')}}
-            {{Form::text('invoice_number', $val->invoice_number,['class' => 'validate', 'id' => 'invoice_number'])}}
+            {{Form::text('invoice_number', $val->billing_day. $val->id,['class' => 'validate', 'id' => 'invoice_number'])}}
 
             <!--請求書のタイトル-->
             {{Form::label('invoice_title','件名')}}
@@ -170,6 +170,12 @@
                     <td>{{ceil($withholding_subtotal = $subtotal * 0.2042)}}円</td>
                     @else
                     <td>{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
+                    @endif
+                @elseif($val->withholding_tax_rate == 4.00)
+                    @if($val->fraction == 1)
+                    <td>{{ceil($withholding_subtotal = $subtotal * 0.05)}}円</td>
+                    @else
+                    <td>{{floor($withholding_subtotal = $subtotal * 0.05)}}円</td>
                     @endif
                 @endif
                 {{Form::hidden('withholding_subtotal',$withholding_subtotal)}}

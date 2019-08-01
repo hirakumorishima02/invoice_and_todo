@@ -154,6 +154,12 @@
         @else
         <td class="td-height">{{floor($withholding_subtotal = $subtotal * 0.2042)}}円</td>
         @endif
+    @elseif($val->withholding_tax_rate == 4.00)
+        @if($val->fraction == 1)
+        <td class="td-height">{{ceil($withholding_subtotal = $subtotal * 0.05)}}円</td>
+        @else
+        <td class="td-height">{{floor($withholding_subtotal = $subtotal * 0.05)}}円</td>
+        @endif
     @endif
 </tr>
 <tr>

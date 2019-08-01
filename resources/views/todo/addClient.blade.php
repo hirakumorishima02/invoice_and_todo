@@ -33,6 +33,7 @@
 	              <option value="1">0%(無課税)</option>
 	              <option value="2">10.21%</option>
 	              <option value="3">20.42%</option>
+	              <option value="4">5%</option>
 	            </select>
 	            <label for="withholding_tax_rate">源泉徴収税率</label>
 	          </div>
