@@ -23,7 +23,6 @@
 	              <option value="1">0%(税抜)</option>
 	              <option value="2">8%(税込)</option>
 	              <option value="3">10%(税込)</option>
-	              <option value="4">5%(税込)</option>
 	            </select>
 	            <label for="sales_tax_rate">消費税率</label>
 	          </div>
