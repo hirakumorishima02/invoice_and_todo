@@ -43,7 +43,7 @@
             <p>下記のとおりご請求申し上げます。</p>
             <h2><u>ご請求金額<span>¥{{ceil($val->sum_price)}}-</span></u></h2>
             <!--支払期限-->
-            <p>お支払い期限:{{$val->billing_day}}</p>
+            <p>お支払い期限:{{$val->payment_day}}</p>
             @endforeach
         </td>
         <td>

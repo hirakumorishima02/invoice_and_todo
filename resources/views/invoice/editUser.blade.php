@@ -22,7 +22,7 @@
           </div>          
           <div class="input-field col s12">
             <input id="email" type="text" class="validate" name="email" value="{{$list->email}}">
-            <label for="emailr">E-mail(任意)</label>
+            <label for="email">E-mail(任意)</label>
           </div>
           <div class="input-field col s12">
             <input id="postal_code" type="text" class="validate" name="postal_code" value="{{$list->postal_code}}">
