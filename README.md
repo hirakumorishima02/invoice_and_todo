@@ -12,4 +12,4 @@ https://invoice-andtodo.herokuapp.com/
 https://www.misoca.jp
 https://crowdle.jp/employee/projects
 これらのサイトは、それぞれ「請求書作成」「タスク管理」のどちらかしか行うことができません。
-その点、Invoice'n To Doは、そのどちらも行うことができるため、作業の最適化を叶えます
+その点、Invoice'n To Doは、そのどちらも行うことができるため、作業の最適化を叶えます。
